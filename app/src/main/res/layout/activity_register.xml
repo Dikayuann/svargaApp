@@ -5,9 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
-    android:padding="16dp"
-    android:background="@color/green">
+    tools:context=".RegisterActivity"
+    android:background="@color/green"
+    >
 
     <ImageView
         android:id="@+id/imageView"

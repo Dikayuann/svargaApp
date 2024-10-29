@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">svargaApp</string>
+    <string name="register_prompt">Belum Punya Akun? <b>Daftar Sekarang!</b></string>
 </resources>
