@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Layer untuk warna dasar -->
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#F3EED4" /> <!-- Warna background utama -->
+        </shape>
+    </item>
+
+    <!-- Layer untuk efek miring dengan gradien -->
+    <item
+        android:left="0dp"
+        android:right="-40dp"
+        android:top="-90dp"
+        android:bottom="-20dp">
+
+        <rotate
+            android:fromDegrees="-30"
+            android:pivotX="90%"
+            android:pivotY="110%">
+
+            <shape android:shape="rectangle">
+                <gradient
+
+                    android:startColor="#A2C0BB9E"
+                    android:endColor="#F3EED4"
+                android:angle="90" />
+            </shape>
+        </rotate>
+    </item>
+
+</layer-list>
