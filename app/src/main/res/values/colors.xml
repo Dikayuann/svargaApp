@@ -3,5 +3,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="green">#102C1E</color>
+    <color name="ecru">#D3C582</color>
+    <color name="cream">#F3EED4</color>Parchment
+    <color name="silver">#DEE2E6</color>Platinum
+
+
 
 </resources>
