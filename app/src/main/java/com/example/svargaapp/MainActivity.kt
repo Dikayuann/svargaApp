@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
         //ekplisit intent untuk memanggil login activity
-        val btnMulai:Button = findViewById(R.id.button)
+        val btnMulai:Button = findViewById(R.id.buttonStart)
         //memanggil activity login
         btnMulai.setOnClickListener{
             val intent = Intent (this, LoginActivity::class.java)
