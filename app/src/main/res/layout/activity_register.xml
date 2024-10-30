@@ -6,18 +6,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RegisterActivity"
-    android:background="@color/green"
-    >
+    android:background="@color/green">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewLogo"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
+        android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
+        android:src="@drawable/logo"/>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textViewRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -26,15 +26,15 @@
         android:textStyle="bold"
         android:fontFamily="sans-serif-condensed"
         android:textColor="@color/white"
-        android:layout_below="@id/imageView"
+        android:layout_below="@id/imageViewLogo"
         android:layout_centerHorizontal="true"
-        android:text="Log In" />
+        android:text="Register" />
 
     <EditText
-        android:id="@+id/editTextText2"
+        android:id="@+id/editTextUsername"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/textViewRegister"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginTop="30dp"
@@ -46,45 +46,130 @@
         android:paddingEnd="10dp" />
 
     <EditText
-        android:id="@+id/editTextText3"
+        android:id="@+id/editTextEmail"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_below="@+id/editTextText2"
+        android:layout_below="@+id/editTextUsername"
         android:background="@drawable/custom_login_bg"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
+        android:inputType="textEmailAddress"
+        android:hint="Email"
+        android:fontFamily="sans-serif-condensed"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp" />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/editTextEmail"
+        android:background="@drawable/custom_login_bg"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="15dp"
         android:inputType="textPassword"
         android:hint="Password"
         android:fontFamily="sans-serif-condensed"
         android:paddingStart="10dp"
         android:paddingEnd="10dp" />
 
-    <Button
-        android:id="@+id/button2"
+    <EditText
+        android:id="@+id/editTextConfirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_below="@+id/editTextPassword"
+        android:background="@drawable/custom_login_bg"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginTop="15dp"
+        android:inputType="textPassword"
+        android:hint="Confirm Password"
+        android:fontFamily="sans-serif-condensed"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp" />
+
+    <LinearLayout
+        android:id="@+id/lineOr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Masuk"
-        android:textColor="@color/green"
-        android:textStyle="bold"
-        android:textSize="18dp"
-        android:fontFamily="sans-serif-condensed"
-        android:layout_marginTop="70dp"
-        android:layout_marginLeft="80dp"
-        android:layout_marginRight="80dp"
-        android:layout_below="@+id/editTextText3"
-        android:backgroundTint="#F3EED4"
-        />
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginStart="40dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_below="@id/editTextConfirmPassword">
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_below="@id/button2"
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Atau"
+            android:padding="8dp"
+            android:textColor="@android:color/white"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="2dp"
+            android:layout_weight="1"
+            android:background="@android:color/darker_gray"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/socialButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textAlignment="center"
-        android:textColor="@color/white"
-        android:text="@string/register_prompt" />
+        android:orientation="horizontal"
+        android:layout_below="@id/lineOr"
+        android:gravity="center">
 
+        <Button
+            android:id="@+id/buttonGoogle"
+            android:layout_width="140dp"
+            android:layout_height="50dp"
+            android:text="Google"
+            android:textColor="@color/green"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:fontFamily="sans-serif-condensed"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/logo_google"
+            android:drawablePadding="8dp" />
 
+        <Button
+            android:id="@+id/buttonFacebook"
+            android:layout_width="140dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="10dp"
+            android:text="Facebook"
+            android:textColor="@color/green"
+            android:textStyle="bold"
+            android:textSize="15sp"
+            android:fontFamily="sans-serif-condensed"
+            android:backgroundTint="@color/white"
+            android:drawableLeft="@drawable/logo_facebook"
+            android:drawablePadding="8dp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonRegister"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Daftar"
+        android:textColor="@color/green"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:fontFamily="sans-serif-condensed"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        android:layout_below="@+id/socialButtons"
+        android:backgroundTint="#F3EED4"/>
 </RelativeLayout>
