@@ -1,10 +1,15 @@
 package com.example.svargaapp
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,6 +41,51 @@ class MenuFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_menu, container, false)
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val images = listOf(R.drawable.image10, R.drawable.image20, R.drawable.image30)
+        val sliderAdapter = SliderAdapter(images)
+
+        val viewPager = view.findViewById<ViewPager2>(R.id.viewPager)
+        viewPager.adapter = sliderAdapter
+        viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+
+        sliderHandler = Handler(Looper.getMainLooper())
+        sliderRunnable = Runnable {
+            // Periksa jika sudah berada di halaman terakhir
+            if (viewPager.currentItem == images.size - 1) {
+                viewPager.currentItem = 0  // Kembali ke halaman pertama
+            } else {
+                viewPager.currentItem = viewPager.currentItem + 1
+            }
+        }
+
+// Set interval perpindahan halaman setiap 3 detik
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                sliderHandler.removeCallbacks(sliderRunnable)
+                sliderHandler.postDelayed(sliderRunnable, 5000) // 3000 ms = 3 detik
+            }
+        })
+
+    }
+    override fun onPause() {
+        super.onPause()
+        sliderHandler.removeCallbacks(sliderRunnable)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        sliderHandler.postDelayed(sliderRunnable, 5000)
+    }
+
+
+    // Variabel untuk Handler dan Runnable
+    private lateinit var sliderHandler: Handler
+    private lateinit var sliderRunnable: Runnable
+
 
     companion object {
         /**
