@@ -1,5 +1,6 @@
 package com.example.svargaapp
 
+import SliderAdapter
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -7,32 +8,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [MenuFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class MenuFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var sliderHandler: Handler
+    private lateinit var sliderRunnable: Runnable
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,33 +29,62 @@ class MenuFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val images = listOf(R.drawable.image10, R.drawable.image20, R.drawable.image30)
-        val sliderAdapter = SliderAdapter(images)
 
+        // Slider setup
+        val images = listOf(
+            R.drawable.promo_svarga1,
+            R.drawable.promo_svarga2,
+            R.drawable.promo_svarga3,
+            R.drawable.promo_svarga4
+        )
+
+        val sliderAdapter = SliderAdapter(images)
         val viewPager = view.findViewById<ViewPager2>(R.id.viewPager)
         viewPager.adapter = sliderAdapter
         viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        setCurrentIndicator(0)
 
         sliderHandler = Handler(Looper.getMainLooper())
         sliderRunnable = Runnable {
-            // Periksa jika sudah berada di halaman terakhir
             if (viewPager.currentItem == images.size - 1) {
-                viewPager.currentItem = 0  // Kembali ke halaman pertama
+                viewPager.currentItem = 0
             } else {
-                viewPager.currentItem = viewPager.currentItem + 1
+                viewPager.currentItem++
             }
         }
 
-// Set interval perpindahan halaman setiap 3 detik
+        // Setup RecyclerView for menu items
+        val menuList = listOf(
+            MenuItem("Cappuccino", "With Milkshake", "Rp. 23.000", R.drawable.janu_profile),
+            MenuItem("Midnight Berry", "Americano rasa buah blueberry", "Rp. 28.000", R.drawable.janu_profile),
+            MenuItem("Coffee Java", "Kopi susu dengan gula aren", "Rp. 25.000", R.drawable.janu_profile),
+            MenuItem("Vietnamese", "Kopi susu dengan krimer kental manis", "Rp. 25.000", R.drawable.janu_profile),
+            MenuItem("Cappuccino", "With Milkshake", "Rp. 23.000", R.drawable.janu_profile),
+            MenuItem("Midnight Berry", "Americano rasa buah blueberry", "Rp. 28.000", R.drawable.janu_profile),
+            MenuItem("Coffee Java", "Kopi susu dengan gula aren", "Rp. 25.000", R.drawable.janu_profile),
+            MenuItem("Vietnamese", "Kopi susu dengan krimer kental manis", "Rp. 25.000", R.drawable.janu_profile)
+        )
+
+        val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerView)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.adapter = MenuAdapter(menuList)
+
+        // Mengatur LayoutManager menjadi GridLayoutManager dengan 2 kolom
+        val layoutManager = GridLayoutManager(context, 2) // 2 kolom
+        recyclerView.layoutManager = layoutManager
+
+
+        // ViewPager2 callback and slider logic
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
+                setCurrentIndicator(position)
                 sliderHandler.removeCallbacks(sliderRunnable)
-                sliderHandler.postDelayed(sliderRunnable, 5000) // 3000 ms = 3 detik
+                sliderHandler.postDelayed(sliderRunnable, 5000)
             }
         })
-
     }
+
     override fun onPause() {
         super.onPause()
         sliderHandler.removeCallbacks(sliderRunnable)
@@ -81,29 +95,16 @@ class MenuFragment : Fragment() {
         sliderHandler.postDelayed(sliderRunnable, 5000)
     }
 
-
-    // Variabel untuk Handler dan Runnable
-    private lateinit var sliderHandler: Handler
-    private lateinit var sliderRunnable: Runnable
-
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment MenuFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            MenuFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun setCurrentIndicator(index: Int) {
+        val indicatorLayout = requireView().findViewById<LinearLayout>(R.id.indicatorLayout)
+        val childCount = indicatorLayout.childCount
+        for (i in 0 until childCount) {
+            val indicator = indicatorLayout.getChildAt(i)
+            if (i == index) {
+                indicator.setBackgroundResource(R.drawable.indicator_active)
+            } else {
+                indicator.setBackgroundResource(R.drawable.indicator_inactive)
             }
+        }
     }
 }

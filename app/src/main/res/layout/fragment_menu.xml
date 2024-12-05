@@ -7,6 +7,7 @@
     android:background="@color/cream"
     tools:context=".MenuFragment">
 
+    <!-- Header yang tidak bisa di-scroll -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -31,7 +32,8 @@
             android:layout_marginTop="38dp"
             android:layout_marginStart="10dp"
             android:text="Location"
-            android:textSize="12sp"
+            android:fontFamily="@font/montserrat_regular"
+            android:textSize="9sp"
             android:textColor="@color/white"
             app:layout_constraintStart_toEndOf="@id/imageView7"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -42,12 +44,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:text="Kota Baru, Yogyakarta"
+            android:fontFamily="@font/montserrat_semibold"
             android:textSize="12sp"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/imageView7"
             app:layout_constraintTop_toBottomOf="@id/textViewLocation"/>
-        
+
         <ImageView
             android:id="@+id/imageViewNotif"
             android:layout_width="32dp"
@@ -69,14 +72,14 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent">
 
-        <ImageView
-            android:id="@+id/imageViewProfile"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="image"
-            android:src="@drawable/janu_profile"
-            android:scaleType="centerCrop" />
-    </androidx.cardview.widget.CardView>
+            <ImageView
+                android:id="@+id/imageViewProfile"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="image"
+                android:src="@drawable/janu_profile"
+                android:scaleType="centerCrop" />
+        </androidx.cardview.widget.CardView>
 
         <EditText
             android:id="@+id/search_bar"
@@ -90,41 +93,190 @@
             android:hint="Search"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/h1"
+    <!-- Konten yang dapat digulir (scroll) -->
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="30.2dp"
-        android:text="Penawaran Spesial"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="19sp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
         app:layout_constraintTop_toBottomOf="@id/header"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/card_slider"/>
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_slider"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:cardCornerRadius="16dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginHorizontal="30.2dp"
-        app:layout_constraintTop_toBottomOf="@id/h1"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/viewPager"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_constraintTop_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-    </androidx.cardview.widget.CardView>
+            android:layout_height="wrap_content">
 
+            <TextView
+                android:id="@+id/h1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="30.2dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Penawaran Spesial"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toTopOf="@id/card_slider"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_slider"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                app:cardCornerRadius="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="30.2dp"
+                app:layout_constraintTop_toBottomOf="@id/h1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/indicatorLayout" />
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:id="@+id/indicatorLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="12dp"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                app:layout_constraintTop_toBottomOf="@id/card_slider"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
+                <View
+                    android:id="@+id/dot1"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:background="@drawable/indicator_inactive"
+                    android:layout_margin="4dp" />
+                <View
+                    android:id="@+id/dot2"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:background="@drawable/indicator_inactive"
+                    android:layout_margin="4dp" />
+                <View
+                    android:id="@+id/dot3"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:background="@drawable/indicator_inactive"
+                    android:layout_margin="4dp" />
+                <View
+                    android:id="@+id/dot4"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:background="@drawable/indicator_inactive"
+                    android:layout_margin="4dp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/h2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginHorizontal="30.2dp"
+                android:text="Kategori"
+                android:fontFamily="@font/montserrat_bold"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                app:layout_constraintTop_toBottomOf="@id/indicatorLayout"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <HorizontalScrollView
+                android:id="@+id/horizontal_scroll"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginHorizontal="30.2dp"
+                app:layout_constraintTop_toBottomOf="@id/h2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/btnHot"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:paddingHorizontal="18dp"
+                        android:text="Show all"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:textColor="@color/cream"
+                        android:textAlignment="center"
+                        android:background="@drawable/button_category_active"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/btnHot1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="8dp"
+                        android:paddingHorizontal="18dp"
+                        android:text="Hot"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:textColor="@color/green"
+                        android:textAlignment="center"
+                        android:background="@drawable/button_category_inactive"
+                        android:gravity="center" />
+
+
+                    <TextView
+                        android:id="@+id/btnHot2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="8dp"
+                        android:paddingHorizontal="18dp"
+                        android:text="Cold"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:textColor="@color/green"
+                        android:textAlignment="center"
+                        android:background="@drawable/button_category_inactive"
+                        android:gravity="center" />
+
+                    <TextView
+                        android:id="@+id/btnHot3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="8dp"
+                        android:paddingHorizontal="18dp"
+                        android:text="Others"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/montserrat_regular"
+                        android:textColor="@color/green"
+                        android:textAlignment="center"
+                        android:background="@drawable/button_category_inactive"
+                        android:gravity="center" />
+
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="23dp"
+                android:layout_marginTop="6dp"
+                android:paddingBottom="100dp"
+                app:layout_constraintTop_toBottomOf="@id/horizontal_scroll"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:listitem="@layout/item_menu" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
