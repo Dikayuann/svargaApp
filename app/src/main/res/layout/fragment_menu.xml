@@ -207,7 +207,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/btnHot"
+                        android:id="@+id/btnAll"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:paddingHorizontal="18dp"
@@ -220,7 +220,7 @@
                         android:gravity="center" />
 
                     <TextView
-                        android:id="@+id/btnHot1"
+                        android:id="@+id/btnHot"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:layout_marginStart="8dp"
@@ -235,7 +235,7 @@
 
 
                     <TextView
-                        android:id="@+id/btnHot2"
+                        android:id="@+id/btnCold"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:layout_marginStart="8dp"
@@ -249,7 +249,7 @@
                         android:gravity="center" />
 
                     <TextView
-                        android:id="@+id/btnHot3"
+                        android:id="@+id/btnOthers"
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
                         android:layout_marginStart="8dp"
