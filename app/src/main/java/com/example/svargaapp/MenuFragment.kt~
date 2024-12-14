@@ -21,10 +21,6 @@ class MenuFragment : Fragment() {
 
     private lateinit var sliderHandler: Handler
     private lateinit var sliderRunnable: Runnable
-    private lateinit var btnAll: TextView
-    private lateinit var btnHot: TextView
-    private lateinit var btnCold: TextView
-    private lateinit var btnOthers: TextView
     private val buttonList = mutableListOf<TextView>()
 
     override fun onCreateView(
