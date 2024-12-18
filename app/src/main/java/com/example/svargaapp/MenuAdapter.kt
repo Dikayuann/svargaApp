@@ -7,7 +7,10 @@ import android.widget.TextView
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 
-class MenuAdapter(private var menuList: MutableList<MenuItem>) : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
+class MenuAdapter(
+    private var menuList: MutableList<MenuItem>,
+    private val onAddToCart: (MenuItem) -> Unit // Callback untuk aksi tambah ke keranjang
+) : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MenuViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_menu, parent, false)
@@ -23,13 +26,6 @@ class MenuAdapter(private var menuList: MutableList<MenuItem>) : RecyclerView.Ad
     }
 
     override fun getItemCount(): Int = menuList.size
-
-    // Fungsi untuk memperbarui data
-    fun updateMenu(newMenuList: List<MenuItem>) {
-        menuList.clear()
-        menuList.addAll(newMenuList)
-        notifyDataSetChanged()
-    }
 
     inner class MenuViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.textName)

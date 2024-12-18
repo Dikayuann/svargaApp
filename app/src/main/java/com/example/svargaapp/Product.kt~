@@ -1,0 +1,9 @@
+package com.example.svargaapp
+
+data class Product(
+    val id: String,
+    val name: String,
+    val price: Int,
+    val image: String, // URL atau sumber gambar produk
+    var quantity: Int = 1
+)
