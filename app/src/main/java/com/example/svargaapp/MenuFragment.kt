@@ -56,7 +56,6 @@ class MenuFragment : Fragment() {
         val viewPager = view.findViewById<ViewPager2>(R.id.viewPager)
         viewPager.adapter = sliderAdapter
         viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-        setCurrentIndicator(0)
 
         // Set up a timer for the slider to change images every 5 seconds
         sliderHandler = Handler(Looper.getMainLooper())
@@ -138,6 +137,7 @@ class MenuFragment : Fragment() {
                 super.onPageSelected(position)
                 sliderHandler.removeCallbacks(sliderRunnable)
                 sliderHandler.postDelayed(sliderRunnable, 5000)
+                setCurrentIndicator(position)
             }
         })
     }
