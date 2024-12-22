@@ -48,10 +48,10 @@ class CartAdapter(private val productList: MutableList<Product>) :
     override fun getItemCount(): Int = productList.size
 
     inner class CartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val name: TextView = itemView.findViewById(R.id.tvName)
-        val price: TextView = itemView.findViewById(R.id.tvPrice)
-        val quantity: TextView = itemView.findViewById(R.id.tvQuantity)
-        val ivProductImage: ImageView = itemView.findViewById(R.id.ivProductImage)
+        val name: TextView = itemView.findViewById(R.id.menuName)
+        val price: TextView = itemView.findViewById(R.id.menuPrice)
+        val quantity: TextView = itemView.findViewById(R.id.Quantity)
+        val ivProductImage: ImageView = itemView.findViewById(R.id.imageMenuCart)
         val btnIncrease: TextView = itemView.findViewById(R.id.btnIncrease)
         val btnDecrease: TextView = itemView.findViewById(R.id.btnDecrease)
     }

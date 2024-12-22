@@ -18,28 +18,39 @@
 
         <!-- Nama Produk -->
         <TextView
-            android:id="@+id/menuId"
+            android:id="@+id/dateTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:text="ID Menu"
-            android:visibility="invisible"
-            android:textSize="13sp"
+            android:text="30 Oktober 2024, 13.20 WIB"
+            android:textSize="8sp"
             android:textColor="@color/green"
-            android:fontFamily="@font/montserrat_medium"
+            android:fontFamily="@font/montserrat_regular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/menuName"
+            android:id="@+id/order"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:text="Nama Menu"
-            android:textSize="13sp"
+            android:layout_marginEnd="2dp"
+            android:text="ORDER"
+            android:textSize="8sp"
             android:textColor="@color/green"
-            android:fontFamily="@font/montserrat_medium"
-            app:layout_constraintStart_toStartOf="parent"
+            android:fontFamily="@font/montserrat_regular"
+            app:layout_constraintEnd_toStartOf="@id/orderId"
+            app:layout_constraintTop_toTopOf="@id/orderId" />
+
+        <TextView
+            android:id="@+id/orderId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
+            android:text="#24434"
+            android:textSize="8sp"
+            android:textColor="@color/green"
+            android:fontFamily="@font/montserrat_regular"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Harga Produk -->
@@ -47,77 +58,64 @@
             android:id="@+id/menuPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginEnd="15dp"
             android:text="Rp 00.000"
-            android:textSize="11sp"
+            android:textSize="15sp"
             android:fontFamily="@font/montserrat_bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/menuName" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/cardImageHistory" />
 
         <TextView
-            android:id="@+id/amount"
+            android:id="@+id/nameHistory"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
             android:layout_marginTop="5dp"
-            android:text="Jumlah"
-            android:textSize="13sp"
+            android:text="Coffee Cappucino"
+            android:textSize="15sp"
             android:fontFamily="@font/montserrat_medium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@+id/cardImageCart"/>
+            app:layout_constraintStart_toEndOf="@id/cardImageHistory"
+            app:layout_constraintTop_toTopOf="@id/cardImageHistory"/>
 
 
 
-
-        <!-- Button Less (Decrease) -->
-        <ImageView
-            android:id="@+id/btnDecrease"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="5dp"
-            android:background="@drawable/rectangle2"
-            android:src="@drawable/baseline_horizontal_rule_24"
-            app:layout_constraintBottom_toBottomOf="@+id/Quantity"
-            app:layout_constraintEnd_toStartOf="@+id/Quantity"/>
-
-        <!-- Quantity TextView -->
         <TextView
-            android:id="@+id/Quantity"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="5dp"
-            android:textSize="17dp"
-            android:text="1"
-            android:textColor="@color/white"
-            android:textAlignment="center"
-            android:background="@drawable/rectangle2"
-            app:layout_constraintBottom_toBottomOf="@+id/btnIncrease"
-            app:layout_constraintEnd_toStartOf="@+id/btnIncrease" />
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="5dp"
+            android:text="Status"
+            android:textSize="10sp"
+            android:fontFamily="@font/montserrat_medium"
+            app:layout_constraintStart_toEndOf="@id/cardImageHistory"
+            app:layout_constraintBottom_toBottomOf="@id/cardImageHistory"/>
 
-        <!-- Button More (Increase) -->
+
         <ImageView
             android:id="@+id/btnIncrease"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginEnd="15dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="10dp"
+            android:padding="2.5dp"
             android:background="@drawable/rectangle2"
-            android:src="@drawable/baseline_add_24"
-            app:layout_constraintBottom_toBottomOf="@id/amount"
-            app:layout_constraintEnd_toStartOf="@+id/cardImageCart" />
+            android:src="@drawable/baseline_check_15"
+            app:layout_constraintTop_toTopOf="@id/status"
+            app:layout_constraintBottom_toBottomOf="@id/status"
+            app:layout_constraintStart_toEndOf="@id/status" />
 
         <!-- Product Image -->
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardImageCart"
+            android:id="@+id/cardImageHistory"
             android:layout_width="92dp"
             android:layout_height="92dp"
-            android:layout_marginEnd="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="3dp"
             app:cardCornerRadius="15dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintTop_toBottomOf="@id/dateTime"
+            app:layout_constraintStart_toStartOf="parent">
             <ImageView
-                android:id="@+id/imageMenuCart"
+                android:id="@+id/imageMenuHistory"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"

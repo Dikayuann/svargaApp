@@ -40,7 +40,7 @@
         android:layout_marginTop="30dp"
         android:inputType="text"
         android:background="@drawable/custom_login_bg"
-        android:hint="Username"
+        android:hint="Nama"
         android:fontFamily="sans-serif-condensed"
         android:paddingStart="10dp"
         android:paddingEnd="10dp" />
@@ -55,7 +55,7 @@
         android:layout_marginEnd="40dp"
         android:layout_marginTop="15dp"
         android:inputType="textEmailAddress"
-        android:hint="Email"
+        android:hint="Nomor HP/Email"
         android:fontFamily="sans-serif-condensed"
         android:paddingStart="10dp"
         android:paddingEnd="10dp" />

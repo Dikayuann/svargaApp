@@ -4,5 +4,5 @@
     <stroke
         android:width="2dp"
         android:color="@color/green" /> <!-- Warna border -->
-    <corners android:radius="16dp" /> <!-- Membuat sudut melengkung -->
+    <corners android:radius="10dp" /> <!-- Membuat sudut melengkung -->
 </shape>
