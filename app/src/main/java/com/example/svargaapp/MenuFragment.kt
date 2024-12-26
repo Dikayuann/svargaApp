@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
@@ -18,7 +19,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.example.svargaapp.CartRepository.CartRepository
 import com.example.svargaapp.client.RetrofitClient
 import com.example.svargaapp.response.menu.MenuResponse
 import retrofit2.Call
@@ -32,6 +32,7 @@ class MenuFragment : Fragment() {
     private lateinit var btnHot: TextView
     private lateinit var btnCold: TextView
     private lateinit var btnOthers: TextView
+    private lateinit var btnNotif: ImageView
     private val buttonList = mutableListOf<TextView>()
 
     private val listMenu = ArrayList<MenuResponse>()
@@ -156,6 +157,13 @@ class MenuFragment : Fragment() {
                 setCurrentIndicator(position)
             }
         })
+
+        //Intent Notification
+        btnNotif = view.findViewById(R.id.imageViewNotif)
+        btnNotif.setOnClickListener {
+            val intent = Intent(activity, NotificationActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 

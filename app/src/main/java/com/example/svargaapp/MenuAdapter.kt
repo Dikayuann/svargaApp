@@ -34,7 +34,7 @@ class MenuAdapter(
         fun bind(response: MenuResponse) {
             // Ambil data dari response API
             val name = "${response.name}"
-            val id = "${response.idMenu}"
+            val id = "${response.menu_id}"
             val subtitle = "${response.subtitle}"
             val description ="${response.description}"
             val price = "${response.price}"
