@@ -4,103 +4,179 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#F5F5DC"
+    android:background="@color/cream"
     tools:context=".CartFragment">
 
     <!-- Header -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/header"
+        android:id="@+id/headerCart"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="20dp"
         android:background="@drawable/rectangle1"
         app:layout_constraintTop_toTopOf="parent">
 
-
         <TextView
-            android:id="@+id/textViewKeranjang"
+            android:id="@+id/textHeaderProfil"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="40dp"
+            android:fontFamily="@font/montserrat_semibold"
             android:text="Keranjang Anda"
             android:textColor="@color/white"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:id="@+id/imageViewNotif"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginTop="37.11dp"
-            android:layout_marginEnd="15dp"
-            android:src="@drawable/outline_notifications_24"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/imageViewFrameProfile"/>
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/imageViewFrameProfile"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            app:cardCornerRadius="70dp"
-            app:cardElevation="4dp"
-            android:layout_marginTop="37.11dp"
-            android:layout_marginEnd="30.2dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <ImageView
-                android:id="@+id/imageViewProfile"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="image"
-                android:src="@drawable/janu_profile"
-                android:scaleType="centerCrop" />
-        </androidx.cardview.widget.CardView>
-
-
+            app:layout_constraintBottom_toBottomOf="@id/headerCart"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!-- Konten yang dapat digulir (scroll) -->
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerCart">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/content"
+            android:paddingHorizontal="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="120dp">
 
     <!-- Daftar Produk -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvProducts"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/header"
-        app:layout_constraintBottom_toTopOf="@id/footer"
-        android:padding="8dp" />
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:paddingBottom="100dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:listitem="@layout/item_cart"/>
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <!-- Konten yang dapat digulir (scroll) -->
     <!-- Total Harga dan Checkout -->
-    <LinearLayout
-        android:id="@+id/footer"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/chekout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        android:gravity="center_vertical"
-        android:background="#E1D3A4"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:paddingTop="15dp"
+        android:background="@drawable/rectangle6"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <TextView
-            android:id="@+id/tvTotalPrice"
+            android:id="@+id/textTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Total Harga: Rp 0"
-            android:textSize="16sp"
-            android:textColor="#000000"
-            android:layout_weight="1" />
+            android:layout_marginStart="20dp"
+            android:text="Total:"
+            android:textSize="13sp"
+            android:fontFamily="@font/montserrat_light"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/textDiscon"/>
 
-        <Button
-            android:id="@+id/btnCheckout"
+        <TextView
+            android:id="@+id/textDiscon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="Diskon:"
+            android:textSize="13sp"
+            android:fontFamily="@font/montserrat_light"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/textTax"/>
+
+        <TextView
+            android:id="@+id/textTax"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="5dp"
+            android:text="Pajak:"
+            android:textSize="13sp"
+            android:fontFamily="@font/montserrat_light"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/textGrandTotal"/>
+
+        <TextView
+            android:id="@+id/textTotalPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:text="Rp. 63.000"
+            android:textSize="13sp"
+            android:fontFamily="@font/montserrat_light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/textDiscon"/>
+
+        <TextView
+            android:id="@+id/textDisconPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:text="Rp. 0"
+            android:textSize="13sp"
+            android:fontFamily="@font/montserrat_light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/textTax"/>
+
+        <TextView
+            android:id="@+id/textTaxPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="5dp"
+            android:text="Rp. 0"
+            android:textSize="13sp"
+            android:fontFamily="@font/montserrat_light"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/textGrandTotal"/>
+
+        <TextView
+            android:id="@+id/textGrandTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="Jumlah Total:"
+            android:textSize="14sp"
+            android:fontFamily="@font/montserrat_medium"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/grandTotal"/>
+
+        <TextView
+            android:id="@+id/grandTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="75dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:text="Rp. 63.000"
+            android:textColor="@color/black"
+            android:textSize="21sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:paddingVertical="5dp"
+            android:paddingHorizontal="15dp"
             android:text="Checkout"
-            android:backgroundTint="#203420"
-            android:textColor="#FFFFFF"/>
+            android:textSize="17sp"
+            android:textColor="@color/green"
+            android:fontFamily="@font/montserrat_bold"
+            android:background="@drawable/rectangle3"
+            app:layout_constraintBottom_toBottomOf="@id/grandTotal"
+            app:layout_constraintEnd_toEndOf="parent"/>
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

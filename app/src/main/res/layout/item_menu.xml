@@ -1,6 +1,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/cardMenu"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="8dp"
     app:cardCornerRadius="15dp"
@@ -8,7 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:background="@color/ecru">
@@ -48,8 +49,25 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
+            android:id="@+id/textId"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
+            android:text="ID Menu"
+            android:fontFamily="@font/montserrat_semibold"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:textColor="@color/green"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/cardImage"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+
+        <TextView
             android:id="@+id/textDescription"
-            android:layout_width="130dp"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:layout_marginStart="10dp"
@@ -64,28 +82,16 @@
             android:id="@+id/textPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="25dp"
             android:layout_marginStart="10dp"
             android:layout_marginBottom="5dp"
             android:text="Rp. 00.000"
             android:fontFamily="@font/montserrat_bold"
             android:textColor="@color/black"
-            android:textSize="12sp"
-            app:layout_constraintTop_toBottomOf="@id/cardImage"
+            android:textSize="15sp"
+            app:layout_constraintTop_toBottomOf="@id/textName"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <TextView
-            android:id="@+id/btnAdd"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:background="@drawable/rectangle2"
-            android:padding="2dp"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"
-            android:drawableStart="@drawable/baseline_add_24"
-            android:backgroundTint="@color/green"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

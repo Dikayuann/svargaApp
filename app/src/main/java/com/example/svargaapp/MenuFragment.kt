@@ -1,6 +1,7 @@
 package com.example.svargaapp
 
 import SliderAdapter
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -8,14 +9,16 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.example.svargaapp.CartRepository.CartRepository
 import com.example.svargaapp.client.RetrofitClient
 import com.example.svargaapp.response.menu.MenuResponse
 import retrofit2.Call
@@ -23,13 +26,13 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class MenuFragment : Fragment() {
-
     private lateinit var sliderHandler: Handler
     private lateinit var sliderRunnable: Runnable
     private lateinit var btnAll: TextView
     private lateinit var btnHot: TextView
     private lateinit var btnCold: TextView
     private lateinit var btnOthers: TextView
+    private lateinit var btnNotif: ImageView
     private val buttonList = mutableListOf<TextView>()
 
     private val listMenu = ArrayList<MenuResponse>()
@@ -105,31 +108,45 @@ class MenuFragment : Fragment() {
         btnCold = view.findViewById(R.id.btnCold)
         btnOthers = view.findViewById(R.id.btnOthers)
 
+        fun bind(response: MenuResponse) {
+            // Ambil data dari response API
+            val name = "${response.category}"
+        }
+
         buttonList.addAll(listOf(btnAll, btnHot, btnCold, btnOthers))
 
         // Set up click listeners for filter buttons
         btnAll.setOnClickListener {
             // Show all items
             setActiveButton(btnAll)
+            val adapter = MenuAdapter(listMenu) // Tampilkan semua data
+            RVMenu.adapter = adapter
         }
 
         btnHot.setOnClickListener {
             // Filter items by category "Hot"
-            val filteredList = listMenu.filter { it.category == "Hot" }
             setActiveButton(btnHot)
+            val filteredList = listMenu.filter { it.category.equals("Hot", ignoreCase = true) }
+            val adapter = MenuAdapter(ArrayList(filteredList))
+            RVMenu.adapter = adapter
         }
 
         btnCold.setOnClickListener {
             // Filter items by category "Cold"
-            val filteredList = listMenu.filter { it.category == "Cold" }
             setActiveButton(btnCold)
+            val filteredList = listMenu.filter { it.category.equals("Cold", ignoreCase = true) }
+            val adapter = MenuAdapter(ArrayList(filteredList))
+            RVMenu.adapter = adapter
         }
 
         btnOthers.setOnClickListener {
             // Filter items by category "Others"
-            val filteredList = listMenu.filter { it.category == "Others" }
             setActiveButton(btnOthers)
+            val filteredList = listMenu.filter { it.category.equals("Others", ignoreCase = true) }
+            val adapter = MenuAdapter(ArrayList(filteredList))
+            RVMenu.adapter = adapter
         }
+
 
         // ViewPager2 callback to reset timer when page is changed
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -140,6 +157,14 @@ class MenuFragment : Fragment() {
                 setCurrentIndicator(position)
             }
         })
+
+        //Intent Notification
+        btnNotif = view.findViewById(R.id.imageViewNotif)
+        btnNotif.setOnClickListener {
+            val intent = Intent(activity, NotificationActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     override fun onPause() {

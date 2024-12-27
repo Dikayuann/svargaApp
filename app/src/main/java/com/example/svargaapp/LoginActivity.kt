@@ -3,6 +3,7 @@ package com.example.svargaapp
 import android.content.Intent
 import android.os.Bundle
 import android.text.Html
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -19,10 +20,13 @@ import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
-//    companion object {
-//        var username = "wongtulus@amikom.ac.id"
-//        var password = "admin"
-//    }
+    companion object{
+        var user_id = 0
+        var username = "username"
+        var name = "Nama"
+        var level = "Cashier"
+        var password = "password"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +78,12 @@ class LoginActivity : AppCompatActivity() {
                             ).show()
                             val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                             startActivity(intent)
+                            user_id = account.data.user_id
+                            Log.d("LoginActivity", "User ID: $user_id")
+                            username = account.data.username
+                            name = account.data.name
+                            level = account.data.level
+                            password = account.data.password
                         } else {
                             Toast.makeText(
                                 this@LoginActivity,

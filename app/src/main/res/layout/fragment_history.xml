@@ -5,125 +5,138 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".HistoryFragment"
-    android:background="@color/cream">
+    android:background="@color/cream"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/cream"
+    tools:context=".HistoryFragment">
 
-    <!-- Header Section -->
+    <!-- Header -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/header"
+        android:id="@+id/headerHistory"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="20dp"
         android:background="@drawable/rectangle1"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Title TextView -->
         <TextView
-            android:id="@+id/textViewRiwayat"
-            android:layout_width="match_parent"
+            android:id="@+id/textHeaderCart"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_semibold"
-            android:gravity="center"
-            android:layout_marginTop="40dp"
             android:text="Riwayat"
             android:textColor="@color/white"
-            android:textSize="22sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@id/headerHistory"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <!-- Horizontal ScrollView with Buttons Below Header -->
     <HorizontalScrollView
         android:id="@+id/horizontal_scroll"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="6dp"
-
-        android:scrollbars="none"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/headerHistory"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header"
-        android:layout_marginHorizontal="25dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        android:scrollbars="none"
+        android:paddingHorizontal="20dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <!-- Button Show all -->
             <TextView
                 android:id="@+id/btnAll"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
-                android:background="@drawable/button_category_active"
-                android:fontFamily="@font/montserrat_regular"
-                android:gravity="center"
                 android:paddingHorizontal="18dp"
                 android:text="All"
-                android:textAlignment="center"
+                android:textSize="12sp"
+                android:fontFamily="@font/montserrat_regular"
                 android:textColor="@color/cream"
-                android:textSize="12sp" />
+                android:textAlignment="center"
+                android:background="@drawable/button_category_active"
+                android:gravity="center" />
 
-            <!-- Button Hot -->
             <TextView
-                android:id="@+id/btnRiwayat"
+                android:id="@+id/btnHistory"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_marginStart="8dp"
-                android:background="@drawable/button_category_inactive"
-                android:fontFamily="@font/montserrat_regular"
-                android:gravity="center"
                 android:paddingHorizontal="18dp"
                 android:text="Riwayat"
-                android:textAlignment="center"
+                android:textSize="12sp"
+                android:fontFamily="@font/montserrat_regular"
                 android:textColor="@color/green"
-                android:textSize="12sp" />
+                android:textAlignment="center"
+                android:background="@drawable/button_category_inactive"
+                android:gravity="center" />
 
-            <!-- Button Cold -->
+
             <TextView
-                android:id="@+id/btnProses"
+                android:id="@+id/btnOnProcess"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_marginStart="8dp"
-                android:background="@drawable/button_category_inactive"
-                android:fontFamily="@font/montserrat_regular"
-                android:gravity="center"
                 android:paddingHorizontal="18dp"
                 android:text="Dalam Proses"
-                android:textAlignment="center"
+                android:textSize="12sp"
+                android:fontFamily="@font/montserrat_regular"
                 android:textColor="@color/green"
-                android:textSize="12sp" />
+                android:textAlignment="center"
+                android:background="@drawable/button_category_inactive"
+                android:gravity="center" />
 
-            <!-- Button Others -->
             <TextView
-                android:id="@+id/btnDraf"
+                android:id="@+id/btnDraft"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:layout_marginStart="8dp"
-                android:background="@drawable/button_category_inactive"
-                android:fontFamily="@font/montserrat_regular"
-                android:gravity="center"
                 android:paddingHorizontal="18dp"
                 android:text="Draf"
-                android:textAlignment="center"
+                android:textSize="12sp"
+                android:fontFamily="@font/montserrat_regular"
                 android:textColor="@color/green"
-                android:textSize="12sp" />
+                android:textAlignment="center"
+                android:background="@drawable/button_category_inactive"
+                android:gravity="center" />
 
         </LinearLayout>
     </HorizontalScrollView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="23dp"
-        android:layout_marginTop="10dp"
-        android:paddingBottom="100dp"
-        app:layout_constraintTop_toBottomOf="@id/horizontal_scroll"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@layout/item_menu" />
 
+    <!-- Konten yang dapat digulir (scroll) -->
+    <androidx.core.widget.NestedScrollView
+        android:paddingHorizontal="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/horizontal_scroll">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <!-- Daftar Produk -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCart"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:paddingBottom="100dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:listitem="@layout/item_history"/>
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
