@@ -141,7 +141,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
-                    android:id="@+id/tes1"
+                    android:id="@+id/privateInformation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -175,14 +175,14 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/tes2"
+                    android:id="@+id/settings"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="13dp"
                     android:layout_marginEnd="15dp"
-                    app:layout_constraintTop_toBottomOf="@id/tes1">
+                    app:layout_constraintTop_toBottomOf="@id/privateInformation">
 
                     <ImageView
                         android:layout_width="25dp"
@@ -209,14 +209,14 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/tes3"
+                    android:id="@+id/notification"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="13dp"
                     android:layout_marginEnd="15dp"
-                    app:layout_constraintTop_toBottomOf="@id/tes2">
+                    app:layout_constraintTop_toBottomOf="@id/settings">
 
                     <ImageView
                         android:layout_width="25dp"
@@ -243,14 +243,14 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/tes4"
+                    android:id="@+id/editProfile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="13dp"
                     android:layout_marginEnd="15dp"
-                    app:layout_constraintTop_toBottomOf="@id/tes3">
+                    app:layout_constraintTop_toBottomOf="@id/notification">
 
                     <ImageView
                         android:layout_width="25dp"
@@ -284,7 +284,7 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="13dp"
                     android:layout_marginEnd="15dp"
-                    app:layout_constraintTop_toBottomOf="@id/tes4">
+                    app:layout_constraintTop_toBottomOf="@id/editProfile">
 
                     <ImageView
                         android:layout_width="25dp"
@@ -298,7 +298,7 @@
                         android:layout_weight="1"
                         android:layout_gravity="center"
                         android:fontFamily="@font/montserrat_regular"
-                        android:text="Privaci &amp; Keamanan"
+                        android:text="Privasi &amp; Keamanan"
                         android:drawablePadding="10dp"
                         android:textColor="@color/green"
                         android:textSize="12sp" />
@@ -339,7 +339,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <LinearLayout
-                    android:id="@+id/tes11"
+                    android:id="@+id/faq"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -373,14 +373,14 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/tes22"
+                    android:id="@+id/helpCenter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="13dp"
                     android:layout_marginEnd="15dp"
-                    app:layout_constraintTop_toBottomOf="@id/tes11">
+                    app:layout_constraintTop_toBottomOf="@id/faq">
 
                     <ImageView
                         android:layout_width="25dp"
@@ -407,14 +407,14 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/tes33"
+                    android:id="@+id/language"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="13dp"
                     android:layout_marginEnd="15dp"
-                    app:layout_constraintTop_toBottomOf="@id/tes22">
+                    app:layout_constraintTop_toBottomOf="@id/helpCenter">
 
                     <ImageView
                         android:layout_width="25dp"
@@ -441,14 +441,14 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/tes44"
+                    android:id="@+id/bugReport"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="13dp"
                     android:layout_marginEnd="15dp"
-                    app:layout_constraintTop_toBottomOf="@id/tes33">
+                    app:layout_constraintTop_toBottomOf="@id/language">
 
                     <ImageView
                         android:layout_width="25dp"
@@ -475,14 +475,14 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/tes55"
+                    android:id="@+id/rating"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="13dp"
                     android:layout_marginEnd="15dp"
-                    app:layout_constraintTop_toBottomOf="@id/tes44">
+                    app:layout_constraintTop_toBottomOf="@id/bugReport">
 
                     <ImageView
                         android:layout_width="25dp"
@@ -509,14 +509,14 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/tes66"
+                    android:id="@+id/logout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="13dp"
                     android:layout_marginEnd="15dp"
-                    app:layout_constraintTop_toBottomOf="@id/tes55">
+                    app:layout_constraintTop_toBottomOf="@id/rating">
 
                     <ImageView
                         android:layout_width="25dp"

@@ -8,8 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.RecyclerView
-import androidx.appcompat.app.AppCompatActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -42,40 +40,29 @@ class TransactionFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_transaction, container, false)
     }
 
-//        val btnCheckPayment: TextView = view.findViewById(R.id.textPaymentOtherArrow)
-//        btnCheckPayment.setOnClickListener {
-//            val bottomSheet = PaymentMethodBottomSheet()
-//            bottomSheet.show(parentFragmentManager, "PaymentMethodBottomSheet")
-//        }
-//
-//        val tvCheckPayment: TextView = view.findViewById(R.id.textPaymentOther)
-//        tvCheckPayment.setOnClickListener {
-//            val bottomSheet = PaymentMethodBottomSheet()
-//            bottomSheet.show(parentFragmentManager, "PaymentMethodBottomSheet")
         // Inisialisasi view
-override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-    super.onViewCreated(view, savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    // Inisialisasi view
-    paymentName = view.findViewById(R.id.textPaymentQris)
-    paymentDescription = view.findViewById(R.id.textPaymentDesc)
-    paymentLogo = view.findViewById(R.id.paymentLogo)
+        // Inisialisasi view
+        paymentName = view.findViewById(R.id.textPaymentQris)
+        paymentDescription = view.findViewById(R.id.textPaymentDesc)
+        paymentLogo = view.findViewById(R.id.paymentLogo)
 
-    // Tombol untuk membuka bottom sheet
-    val btnCheckPayment: TextView = view.findViewById(R.id.textPaymentOtherArrow)
-    btnCheckPayment.setOnClickListener {
-        openPaymentBottomSheet()
+        // Tombol untuk membuka bottom sheet
+        val btnCheckPayment: TextView = view.findViewById(R.id.textPaymentOtherArrow)
+        btnCheckPayment.setOnClickListener {
+            openPaymentBottomSheet()
+        }
+
+        val tvCheckPayment: TextView = view.findViewById(R.id.textPaymentOther)
+        tvCheckPayment.setOnClickListener {
+            openPaymentBottomSheet()
+        }
     }
-
-    val tvCheckPayment: TextView = view.findViewById(R.id.textPaymentOther)
-    tvCheckPayment.setOnClickListener {
-        openPaymentBottomSheet()
-    }
-}
 
     // TransactionFragment
     private fun openPaymentBottomSheet() {

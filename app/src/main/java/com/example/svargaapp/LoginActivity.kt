@@ -99,16 +99,6 @@ class LoginActivity : AppCompatActivity() {
                     }
                 }
             )
-
-
-//            if (editTextUsername.text.toString().equals(username) &&
-//                editTextPassword.text.toString().equals(password)) {
-//                val intent = Intent(this, HomeActivity::class.java)
-//                startActivity(intent)
-//            } else {
-//                Toast.makeText(this, "Login failed, Check your email and password",
-//                    Toast.LENGTH_SHORT).show()
-//            }
        }
         textViewRegisterPrompt.text = Html.fromHtml(getString(R.string.register_prompt), Html.FROM_HTML_MODE_LEGACY)
 

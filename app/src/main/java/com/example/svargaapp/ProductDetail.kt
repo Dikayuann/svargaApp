@@ -2,6 +2,7 @@ package com.example.svargaapp
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -19,6 +20,8 @@ import retrofit2.Response
 
 class ProductDetail : AppCompatActivity() {
     private lateinit var btnAddToCart: TextView
+    private lateinit var quantityTextView: TextView
+    private var quantity: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,32 +56,45 @@ class ProductDetail : AppCompatActivity() {
         textViewPrice.text = foodPrice
         Picasso.get().load(RetrofitClient.IMAGE_URL + foodPicture).into(imageView)
 
-
-        //Back Button
+        // Back Button
         val backButton: ImageView = findViewById(R.id.backButton)
         backButton.setOnClickListener {
             finish()
         }
 
+        // Initialize quantity view
+        quantityTextView = findViewById(R.id.quantity)
+        quantityTextView.text = quantity.toString()
 
-        // Mengambil data quantity
-        val quantityTextView: TextView = findViewById(R.id.quantity)
-        val quantity = quantityTextView.text.toString().toInt()
+        // Set up Decrement and Increment buttons
+        val btnDecrement: ImageButton = findViewById(R.id.btnDecrement)
+        val btnIncrement: ImageButton = findViewById(R.id.btnIncrement)
 
-// Ambil data dari intent
+        btnDecrement.setOnClickListener {
+            if (quantity > 1) {  // Prevent quantity from going below 1
+                quantity -= 1
+                quantityTextView.text = quantity.toString()  // Update quantity display
+            }
+        }
+
+        btnIncrement.setOnClickListener {
+            quantity += 1  // Increase quantity
+            quantityTextView.text = quantity.toString()  // Update quantity display
+        }
+
+        // Get user ID from login activity
         val userId = LoginActivity.user_id.toString()
         Log.d("ProductDetail", "User ID: $userId")
         val menuId = foodId.toString()
         Log.d("ProductDetail", "Menu ID: $menuId")
-        val cartRequest = CartRequest(userId, menuId, quantity)
-        Log.d("ProductDetail", "Cart Request: $cartRequest")
-
 
         btnAddToCart = findViewById(R.id.btnCheckout)
         btnAddToCart.setOnClickListener {
+            // Create a new CartRequest with the updated quantity
+            val cartRequest = CartRequest(userId, menuId, quantity)
+            Log.d("ProductDetail", "Cart Request: $cartRequest")
 
-
-// Memanggil API untuk menambahkan ke cart
+            // Call API to add to cart
             RetrofitClient.instance.addToCart(cartRequest).enqueue(object : Callback<CartResponse> {
                 override fun onResponse(
                     call: Call<CartResponse>,
@@ -102,6 +118,5 @@ class ProductDetail : AppCompatActivity() {
                 }
             })
         }
-
     }
 }

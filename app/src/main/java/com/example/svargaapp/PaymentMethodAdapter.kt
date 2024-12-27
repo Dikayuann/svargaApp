@@ -4,7 +4,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -25,13 +24,9 @@ class PaymentMethodAdapter(
             textDescription.text = paymentMethod.description
             imageIcon.setImageResource(paymentMethod.image)
 
-//            itemView.setOnClickListener {
-//                Log.d("PaymentMethodAdapter", "Item clicked: ${paymentMethod.name}")
-//                onItemClick(paymentMethod)
-
             // Di dalam PaymentMethodAdapter
             textButton.setOnClickListener {
-                onItemClick(paymentMethod) // Pastikan ini benar-benar memanggil callback
+                onItemClick(paymentMethod)
             }
 
         }
@@ -45,10 +40,9 @@ class PaymentMethodAdapter(
 
     override fun onBindViewHolder(holder: PaymentViewHolder, position: Int) {
         val paymentMethod = paymentMethods[position]
-        holder.bind(paymentMethod) // Gunakan bind di sini
+        holder.bind(paymentMethod)
         Log.d("RecyclerView", "Binding data: ${paymentMethod.name}")
     }
-
 
     override fun getItemCount(): Int = paymentMethods.size
 }

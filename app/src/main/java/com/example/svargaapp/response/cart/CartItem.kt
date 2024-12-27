@@ -6,8 +6,11 @@ data class CartItem(
     var quantity: Int,
     val added_at: String,
     val name: String,
-    val price: String,
+    val price: Double,
     val image: String
 )
+
+
+
 
 

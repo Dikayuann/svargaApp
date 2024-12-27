@@ -38,10 +38,9 @@ class PaymentMethodBottomSheet(
         // PaymentMethodBottomSheet
         val adapter = PaymentMethodAdapter(paymentMethods) { selectedPayment ->
             Log.d("BottomSheet", "Selected payment: ${selectedPayment.name}")
-            onPaymentSelected(selectedPayment) // Pastikan ini dipanggil dengan benar
+            onPaymentSelected(selectedPayment)
             dismiss() // Tutup Bottom Sheet setelah memilih
         }
-
 
         rvPayment.adapter = adapter
 

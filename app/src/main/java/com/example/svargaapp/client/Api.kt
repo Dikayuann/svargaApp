@@ -7,10 +7,12 @@ import com.example.svargaapp.response.cart.CartResponse
 import com.example.svargaapp.response.menu.MenuResponse
 import retrofit2.Call
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface Api {
@@ -31,6 +33,20 @@ interface Api {
     fun getCartItems(
         @Path("user_id") userId: String
     ): Call<ArrayList<CartItem>>
+
+    @PUT("cart/update/{cartId}")
+    fun updateCartItem(
+        @Path("cartId") cartId: String,
+        @Body CartRequest: CartRequest
+    ): Call<CartResponse>
+
+
+    @DELETE("cart/remove/{userId}/{cartId}")
+    fun removeCartItem(
+        @Path("userId") userId: String,
+        @Path("cartId") cartId: String
+    ): Call<CartResponse>
+
 }
 
 

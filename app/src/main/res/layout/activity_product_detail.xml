@@ -197,7 +197,4 @@ kopi yang autentik dan menenangkan." />
             app:layout_constraintEnd_toEndOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!-- Tabs -->
-<!-- Checkout Section -->
-
 </androidx.constraintlayout.widget.ConstraintLayout>
