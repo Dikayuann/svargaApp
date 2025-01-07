@@ -70,12 +70,18 @@ class CartAdapter(
                     totalPriceListener.onTotalPriceChanged() // Notify fragment to recalculate total
                     updateCartItemOnServer(response) // Update server with new quantity
                 } else {
-                    // Remove item if quantity is 0
-                    productList.removeAt(adapterPosition)
-                    notifyItemRemoved(adapterPosition)
-                    notifyItemRangeChanged(adapterPosition, itemCount)
-                    totalPriceListener.onTotalPriceChanged() // Recalculate total after removal
-                    removeCartItemFromServer(response) // Remove item from server
+                    // Ensure adapterPosition is valid before trying to remove item
+                    val position = adapterPosition
+                    if (position != RecyclerView.NO_POSITION) {
+                        // Remove item if quantity is 0
+                        productList.removeAt(position)
+                        notifyItemRemoved(position)
+                        notifyItemRangeChanged(position, itemCount)
+                        totalPriceListener.onTotalPriceChanged() // Recalculate total after removal
+                        removeCartItemFromServer(response) // Remove item from server
+                    } else {
+                        Log.e("CartAdapter", "Invalid adapter position: $position")
+                    }
                 }
             }
         }
@@ -140,12 +146,6 @@ class CartAdapter(
     }
 
     override fun getItemCount(): Int = productList.size
-
-//    private fun formatPrice(price: Double): String {
-//        val locale = Locale("id", "ID")  // Indonesian locale for "Rp" symbol
-//        val numberFormat = NumberFormat.getCurrencyInstance(locale)
-//        return numberFormat.format(price)
-//    }
 
     private fun formatPrice(amount: Double): String {
         // Formatting the currency with two decimal places

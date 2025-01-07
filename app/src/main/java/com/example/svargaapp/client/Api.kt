@@ -60,6 +60,25 @@ interface Api {
         @Path("cartId") cartId: String
     ): Call<CartResponse>
 
+    @GET("paymentmethod")
+    fun getPaymentMethods(): Call<List<PaymentMethodResponse>>
+
+    @GET("discount")
+    fun getDiscount(): Call<List<DiscountResponse>>
+
+    @POST("orders")
+    fun createOrder(@Body order: OrderRequest): Call<OrderResponse>
+
+    @FormUrlEncoded
+    @PUT("location/update/{user_id}")
+    fun putLocation(
+        @Path("user_id") userId: String,
+        @Field("location") newLocation: String
+    ): Call<MapResponse>
+
+    @POST("payment/create")
+    fun createPayment(@Body paymentRequest: PaymentRequest): Call<PaymentResponse>
+
 
 }
 

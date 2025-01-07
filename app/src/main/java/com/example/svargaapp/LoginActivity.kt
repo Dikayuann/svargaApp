@@ -27,7 +27,9 @@ class LoginActivity : AppCompatActivity() {
         var level = "Cashier"
         var password = "password"
         var number = "Phone_number"
-
+        var location = "location"
+        var foto_profile = "foto_profile"
+        var phone_number = "phone_number"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -99,10 +101,15 @@ class LoginActivity : AppCompatActivity() {
 
                             // Update variabel di LoginActivity
                             user_id = account.data.user_id
+                            Log.d("LoginActivity", "User ID: $user_id")
                             username = account.data.username
                             name = account.data.name
                             level = account.data.level
                             password = account.data.password
+                            location = account.data.location
+                            foto_profile = account.data.foto_profile
+                            Log.d("LoginActivity", "Foto Profile: $foto_profile")
+                            phone_number = account.data.phone_number
                             number = account.data.phone_number
 
 

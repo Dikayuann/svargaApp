@@ -7,11 +7,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.svargaapp.client.RetrofitClient
+import com.squareup.picasso.Picasso
+import com.example.svargaapp.response.paymentMethod.PaymentMethodResponse
 
 class PaymentMethodAdapter(
-    private val paymentMethods: List<PaymentMethodModel>,
-    private val onItemClick: (PaymentMethodModel) -> Unit) :
-    RecyclerView.Adapter<PaymentMethodAdapter.PaymentViewHolder>() {
+    private val paymentMethods: List<PaymentMethodResponse>,
+    private val onItemClick: (PaymentMethodResponse) -> Unit
+) : RecyclerView.Adapter<PaymentMethodAdapter.PaymentViewHolder>() {
 
     inner class PaymentViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textName: TextView = view.findViewById(R.id.textPaymentQris)
@@ -19,16 +22,17 @@ class PaymentMethodAdapter(
         val imageIcon: ImageView = view.findViewById(R.id.paymentLogo)
         val textButton: TextView = view.findViewById(R.id.textButton)
 
-        fun bind(paymentMethod: PaymentMethodModel) {
-            textName.text = paymentMethod.name
-            textDescription.text = paymentMethod.description
-            imageIcon.setImageResource(paymentMethod.image)
+        fun bind(paymentMethod: PaymentMethodResponse) {
+            textName.text = paymentMethod.name_method
+            textDescription.text = "Admin: Rp. ${paymentMethod.admin}"
 
-            // Di dalam PaymentMethodAdapter
+            // Memuat gambar dengan Picasso
+            var url = RetrofitClient.IMAGE_URL + paymentMethod.image
+            Picasso.get().load(url).into(imageIcon)
+
             textButton.setOnClickListener {
                 onItemClick(paymentMethod)
             }
-
         }
     }
 
@@ -41,7 +45,7 @@ class PaymentMethodAdapter(
     override fun onBindViewHolder(holder: PaymentViewHolder, position: Int) {
         val paymentMethod = paymentMethods[position]
         holder.bind(paymentMethod)
-        Log.d("RecyclerView", "Binding data: ${paymentMethod.name}")
+        Log.d("RecyclerView", "Binding data: ${paymentMethod.name_method}")
     }
 
     override fun getItemCount(): Int = paymentMethods.size
