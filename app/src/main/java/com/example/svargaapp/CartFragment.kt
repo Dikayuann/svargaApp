@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.svargaapp.client.RetrofitClient
 import com.example.svargaapp.response.cart.CartItem
+import com.example.svargaapp.response.cart.CartResponse
+import com.example.svargaapp.response.order.OrderRequest
+import com.example.svargaapp.response.order.OrderResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -51,24 +54,29 @@ class CartFragment : Fragment(), CartAdapter.TotalPriceListener {
                 call: Call<ArrayList<CartItem>>,
                 response: Response<ArrayList<CartItem>>
             ) {
-                if (response.isSuccessful) {
-                    val body = response.body()
-                    if (body != null) {
-                        // Clear current items and add the updated items
-                        listMenu.clear()
-                        listMenu.addAll(body)
+                if (isAdded) { // Check if the fragment is still attached
+                    if (response.isSuccessful) {
+                        val body = response.body()
+                        if (body != null) {
+                            // Clear current items and add the updated items
+                            listMenu.clear()
+                            listMenu.addAll(body)
 
-                        // Update the adapter
-                        val adapter = CartAdapter(listMenu, this@CartFragment, requireContext())
-                        RVMenu.adapter = adapter
+                            // Update the adapter
+                            val adapter = CartAdapter(listMenu, this@CartFragment, requireContext())
+                            val RVMenu = view?.findViewById<RecyclerView>(R.id.rvProducts)
+                            RVMenu?.adapter = adapter
 
-                        // Calculate total, tax, and grand total
-                        calculateTotals()
+                            // Calculate total, tax, and grand total
+                            calculateTotals()
+                        } else {
+                            Log.e("CartFragment", "Response body is null")
+                        }
                     } else {
-                        Log.e("CartFragment", "Response body is null")
+                        Log.e("CartFragment", "Response is not successful: ${response.code()} ${response.message()}")
                     }
                 } else {
-                    Log.e("CartFragment", "Response is not successful: ${response.code()} ${response.message()}")
+                    Log.e("CartFragment", "Fragment is not attached. Skipping UI update.")
                 }
             }
 
@@ -76,6 +84,60 @@ class CartFragment : Fragment(), CartAdapter.TotalPriceListener {
                 Log.e("CartFragment", "API call failed", t)
             }
         })
+
+        btnCheckout.setOnClickListener {
+            val totalAmount = textGrandTotal.text.toString().replace("Rp ", "").replace(",", "").toDouble()
+
+            // Membuat order baru
+            val order = OrderRequest(
+                user_id = LoginActivity.user_id,
+                total = totalAmount,  // totalAmount sudah dihitung di UI
+                location = LoginActivity.location
+            )
+
+            // Mengirim request untuk membuat order
+            RetrofitClient.instance.createOrder(order).enqueue(object : Callback<OrderResponse> {
+                override fun onResponse(call: Call<OrderResponse>, response: Response<OrderResponse>) {
+                    if (response.isSuccessful) {
+                        val orderId = response.body()?.order_id ?: return
+                        Log.d("CartFragment", "Order created successfully with ID: $orderId")
+                        // Passing the order_id to TransactionFragment using Fragment arguments
+                        val transactionFragment = TransactionFragment()
+                        val bundle = Bundle()
+                        bundle.putInt("order_id", orderId)
+                        transactionFragment.arguments = bundle
+
+                        // Passing the total to TransactionFragment using Fragment arguments
+                        bundle.putInt("total", totalAmount.toInt())
+                        transactionFragment.arguments = bundle
+
+                        // Call HomeActivity method to update bottom navigation
+                        activity?.let { activity ->
+                            // Call HomeActivity method to update bottom navigation
+                            (activity as? HomeActivity)?.updateBottomNavigationOnCheckout(
+                                activity.findViewById(R.id.imageView4) // Accessing the "Transaction" icon
+                            )
+                        }
+
+                        // Switch to the TransactionFragment
+                        parentFragmentManager.beginTransaction()
+                            .replace(R.id.fragmentContainerView, transactionFragment)
+                            .addToBackStack(null)
+                            .commit()
+
+                    } else {
+                        Log.e("CartFragment", "Failed to create order. Response Code: ${response.code()} - ${response.message()}")
+                        Log.e("CartFragment", "Response Body: ${response.errorBody()?.string()}")
+                    }
+                }
+
+                override fun onFailure(call: Call<OrderResponse>, t: Throwable) {
+                    Log.e("CartFragment", "Error creating order", t)
+                }
+            })
+        }
+
+
     }
 
     private fun calculateTotals() {
@@ -95,7 +157,6 @@ class CartFragment : Fragment(), CartAdapter.TotalPriceListener {
         textTaxPrice.text = "Rp ${formatCurrency(tax)}"
         textGrandTotal.text = "Rp ${formatCurrency(grandTotal)}"
     }
-
 
     private fun formatCurrency(amount: Double): String {
         // Formatting the currency with two decimal places

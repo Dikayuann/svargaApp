@@ -2,6 +2,7 @@ package com.example.svargaapp
 
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +37,7 @@ class MenuAdapter(
             val id = "${response.menu_id}"
             val subtitle = "${response.subtitle}"
             val description ="${response.description}"
-            val price = "${response.price}"
+            val price = "Rp " + formatPrice(response.price)
             val category = "${response.category}"
             val picture = "${response.image}"
 
@@ -84,4 +85,9 @@ class MenuAdapter(
 
     // Mengembalikan jumlah item dalam daftar
     override fun getItemCount(): Int = listMenu.size
+
+    private fun formatPrice(amount: Double): String {
+        // Formatting the currency with two decimal places
+        return String.format("%,.0f", amount) // Ensure that the amount is formatted correctly
+    }
 }

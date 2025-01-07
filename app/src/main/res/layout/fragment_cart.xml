@@ -80,18 +80,8 @@
             android:textSize="13sp"
             android:fontFamily="@font/montserrat_light"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/textDiscon"/>
-
-        <TextView
-            android:id="@+id/textDiscon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="Diskon:"
-            android:textSize="13sp"
-            android:fontFamily="@font/montserrat_light"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@id/textTax"/>
+
 
         <TextView
             android:id="@+id/textTax"
@@ -107,16 +97,6 @@
 
         <TextView
             android:id="@+id/textTotalPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:textSize="13sp"
-            android:fontFamily="@font/montserrat_light"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/textDiscon"/>
-
-        <TextView
-            android:id="@+id/textDisconPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"

@@ -2,65 +2,66 @@ package com.example.svargaapp
 
 import android.os.Bundle
 import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.svargaapp.client.RetrofitClient
+import com.example.svargaapp.response.discon.DiscountResponse
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.example.svargaapp.response.paymentMethod.PaymentMethodResponse
-import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class PaymentMethodBottomSheet(
-    private val onPaymentSelected: (PaymentMethodResponse) -> Unit
+class DiscountFragment(
+    private val onDiscountSelected: (DiscountResponse) -> Unit
 ) : BottomSheetDialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_payment_method, container, false)
+        return inflater.inflate(R.layout.fragment_discount, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        Log.d("BottomSheet", "PaymentMethodBottomSheet opened")
+        Log.d("BottomSheet", "DiscountBottomSheet opened")
 
-        val rvPayment: RecyclerView = view.findViewById(R.id.recyclerViewPayment)
-        rvPayment.layoutManager = LinearLayoutManager(context)
+        val rvDiscount: RecyclerView = view.findViewById(R.id.recyclerViewDiscount)
+        rvDiscount.layoutManager = LinearLayoutManager(context)
 
         // Memuat data menggunakan Retrofit
-        RetrofitClient.instance.getPaymentMethods().enqueue(object : Callback<List<PaymentMethodResponse>> {
+        RetrofitClient.instance.getDiscount().enqueue(object :
+            Callback<List<DiscountResponse>> {
             override fun onResponse(
-                call: Call<List<PaymentMethodResponse>>,
-                response: Response<List<PaymentMethodResponse>>
+                call: Call<List<DiscountResponse>>,
+                response: Response<List<DiscountResponse>>
             ) {
                 if (response.isSuccessful) {
-                    val paymentMethodsResponse = response.body()
-                    if (paymentMethodsResponse != null && paymentMethodsResponse.isNotEmpty()) {
+                    val discountList = response.body()
+                    if (discountList != null && discountList.isNotEmpty()) {
                         // Set adapter dengan data yang diterima
-                        val adapter = PaymentMethodAdapter(paymentMethodsResponse) { selectedPayment ->
-                            Log.d("BottomSheet", "Selected payment: ${selectedPayment.name_method}")
-                            onPaymentSelected(selectedPayment)
+                        val adapter = DiscountAdapter(discountList) { selectedDiscount ->
+                            Log.d("BottomSheet", "Selected discount: ${selectedDiscount.name_discount}")
+                            onDiscountSelected(selectedDiscount)
                             dismiss() // Tutup Bottom Sheet setelah memilih
                         }
-                        rvPayment.adapter = adapter
+                        rvDiscount.adapter = adapter
                     } else {
-                        Toast.makeText(context, "No payment methods available", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "No discount methods available", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    Toast.makeText(context, "Failed to load payment methods", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Failed to load discount methods", Toast.LENGTH_SHORT).show()
                 }
             }
-            override fun onFailure(call: Call<List<PaymentMethodResponse>>, t: Throwable) {
+
+            override fun onFailure(call: Call<List<DiscountResponse>>, t: Throwable) {
                 Log.e("Retrofit", "Error: ${t.message}")
                 Toast.makeText(context, "Error: ${t.message}", Toast.LENGTH_SHORT).show()
             }

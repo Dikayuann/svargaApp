@@ -101,8 +101,13 @@ class ProductDetail : AppCompatActivity() {
                     response: Response<CartResponse>
                 ) {
                     if (response.isSuccessful && response.body()?.status == true) {
-                        Toast.makeText(applicationContext, "Item added to cart", Toast.LENGTH_SHORT)
-                            .show()
+//                        Toast.makeText(applicationContext, "Item added to cart", Toast.LENGTH_SHORT)
+//                            .show()
+                        Toast.makeText(
+                            this@ProductDetail,
+                            response.body()?.message.toString(),
+                            Toast.LENGTH_SHORT
+                        ).show()
                     } else {
                         Toast.makeText(
                             applicationContext,
@@ -119,4 +124,5 @@ class ProductDetail : AppCompatActivity() {
             })
         }
     }
+
 }

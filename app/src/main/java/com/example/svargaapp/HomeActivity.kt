@@ -58,4 +58,9 @@ class HomeActivity : AppCompatActivity() {
             updateActiveIcon(imgProfile, listOf(imgMenu, imgCart, imgTransaction, imgHistory))
         }
     }
+
+    // This method will allow CartFragment to update the active icon from the HomeActivity
+    fun updateBottomNavigationOnCheckout(activeImageView: ImageView) {
+        updateActiveIcon(activeImageView, listOf(findViewById(R.id.imageView2), findViewById(R.id.imageView3), findViewById(R.id.imageView5), findViewById(R.id.imageView6)))
+    }
 }

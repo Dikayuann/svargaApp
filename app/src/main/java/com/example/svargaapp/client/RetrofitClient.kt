@@ -4,8 +4,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
-    const val BASE_URL ="http://192.168.43.15/svargaApp/index.php/"
-    const val IMAGE_URL = "http://192.168.43.15/svargaApp/image/"
+    const val BASE_URL ="http://192.168.42.15/svargaApp/index.php/"
+    const val IMAGE_URL = "http://192.168.42.15/svargaApp/image/"
 
     val instance: Api by lazy {
         val retrofit = Retrofit.Builder()

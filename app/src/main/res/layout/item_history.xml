@@ -92,17 +92,17 @@
             app:layout_constraintBottom_toBottomOf="@id/cardImageHistory"/>
 
 
-        <ImageView
-            android:id="@+id/btnIncrease"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginStart="10dp"
-            android:padding="2.5dp"
-            android:background="@drawable/rectangle2"
-            android:src="@drawable/baseline_check_15"
-            app:layout_constraintTop_toTopOf="@id/status"
-            app:layout_constraintBottom_toBottomOf="@id/status"
-            app:layout_constraintStart_toEndOf="@id/status" />
+<!--        <ImageView-->
+<!--            android:id="@+id/btnIncrease"-->
+<!--            android:layout_width="20dp"-->
+<!--            android:layout_height="20dp"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:padding="2.5dp"-->
+<!--            android:background="@drawable/rectangle2"-->
+<!--            android:src="@drawable/baseline_check_15"-->
+<!--            app:layout_constraintTop_toTopOf="@id/status"-->
+<!--            app:layout_constraintBottom_toBottomOf="@id/status"-->
+<!--            app:layout_constraintStart_toEndOf="@id/status" />-->
 
         <!-- Product Image -->
         <androidx.cardview.widget.CardView

@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.example.svargaapp.client.RetrofitClient
 import com.example.svargaapp.response.menu.MenuResponse
+import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,6 +30,9 @@ class MenuFragment : Fragment() {
     private lateinit var btnCold: TextView
     private lateinit var btnOthers: TextView
     private lateinit var btnNotif: ImageView
+    private lateinit var fotoProfile: ImageView
+    private lateinit var location: TextView
+
     private val buttonList = mutableListOf<TextView>()
 
     private val listMenu = ArrayList<MenuResponse>()
@@ -44,6 +48,15 @@ class MenuFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // Initialize views
+        location = view.findViewById(R.id.textViewLocation2)
+        fotoProfile = view.findViewById(R.id.imageViewProfile)
+
+        location.text = LoginActivity.location
+        var url = RetrofitClient.IMAGE_URL + LoginActivity.foto_profile
+        Picasso.get().load(url).into(fotoProfile)
+
+        Log.e("MenuFragment", "Profile: ${fotoProfile}")
         // Setup for the image slider
         val images = listOf(
             R.drawable.promo_svarga1,

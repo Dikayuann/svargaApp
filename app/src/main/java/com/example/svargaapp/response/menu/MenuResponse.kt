@@ -5,8 +5,7 @@ data class MenuResponse(
     val name: String,
     val subtitle: String,
     val description: String,
-    val price: Int,
+    val price: Double,
     val category: String,
     val image: String
-
 )
