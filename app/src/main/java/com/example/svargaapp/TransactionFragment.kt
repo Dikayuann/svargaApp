@@ -1,6 +1,5 @@
 package com.example.svargaapp
 
-import android.graphics.drawable.GradientDrawable
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -20,8 +19,6 @@ import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.fragment.app.Fragment
 
 class TransactionFragment : Fragment() {
 
@@ -53,17 +50,6 @@ class TransactionFragment : Fragment() {
     private var paymentMethodsList: List<PaymentMethodResponse> = emptyList()
     private var discountList: List<DiscountResponse> = emptyList()
 
-    // Views for Delivery and Take Away
-    private lateinit var deliveryButton: ConstraintLayout
-    private lateinit var takeAwayButton: ConstraintLayout
-
-    // Track the selected option
-    private var isDeliverySelected = false
-    private var isTakeAwaySelected = false
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
     // Flags for delivery and takeaway options
     private var isDelivery: Boolean = false
     private var isTakeAway: Boolean = false
@@ -134,26 +120,10 @@ class TransactionFragment : Fragment() {
         }
 
         // Initialize payment method views
-        // Initialize views
         paymentName = view.findViewById(R.id.textPaymentQris)
         paymentAdmin = view.findViewById(R.id.textPaymentDesc)
         paymentLogo = view.findViewById(R.id.paymentLogo)
 
-        // Initialize Delivery and Take Away buttons
-        deliveryButton = view.findViewById(R.id.widgetDelivery)
-        takeAwayButton = view.findViewById(R.id.widgetTakeAway)
-
-        // Set up click listeners for Delivery and Take Away
-        deliveryButton.setOnClickListener {
-            toggleDelivery()
-        }
-
-        takeAwayButton.setOnClickListener {
-            toggleTakeAway()
-        }
-
-        // Other code for handling payment method
-        val btnCheckPayment: TextView = view.findViewById(R.id.textPaymentOtherArrow)
         // Initialize discount views
         discountName = view.findViewById(R.id.textDiscount)
         discountExpired = view.findViewById(R.id.textDiscountDesc)
