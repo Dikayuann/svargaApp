@@ -5,5 +5,6 @@ data class Data (
     val username: String,
     val name: String,
     val level: String,
-    val password: String
+    val password: String,
+    val phone_number: String
 )

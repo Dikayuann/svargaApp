@@ -1,61 +1,66 @@
 package com.example.svargaapp
 
+
+
+
+import android.content.Context.MODE_PRIVATE
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [ProfileFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class ProfileFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+        val sharedPreferences: SharedPreferences = requireActivity().getSharedPreferences("user_data", MODE_PRIVATE)
+        val username = sharedPreferences.getString("username", "Guest") ?: "Guest"
+        val name = sharedPreferences.getString("name", "No Name") ?: "No Name"
+
+        val textProfileName: TextView = view.findViewById(R.id.textProfileName)
+        val textProfileUsername: TextView = view.findViewById(R.id.textProfileEmail)
+
+        textProfileName.text = name
+        textProfileUsername.text = username
+
+
+//        // Jika ingin menampilkan user_id atau data lain
+//        val textUserId: TextView = view.findViewById(R.id.textUserId)
+//        textUserId.text = "User ID: $userId"
+
+        val profiledt: LinearLayout = view.findViewById(R.id.privateInformation)
+
+        profiledt.setOnClickListener {
+            // Mengarahkan ke ProfileDetail Activity
+            val intent = Intent(requireActivity(), ProfileDetail::class.java)
+            startActivity(intent)
         }
-    }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
-    }
+        val profileEdit: LinearLayout = view.findViewById(R.id.editProfile)
 
+        profileEdit.setOnClickListener {
+            // Mengarahkan ke ProfileDetail Activity
+            val intent = Intent(requireActivity(), ProfileEdit::class.java)
+            startActivity(intent)
+        }
 
+        val logoutButton: LinearLayout = view.findViewById(R.id.logout)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ProfileFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            ProfileFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+        logoutButton.setOnClickListener {
+            // Tampilkan dialog konfirmasi logout
+            showLogoutDialog()
+        }
+        }
+            // Menampilkan dialog konfirmasi logout
+            private fun showLogoutDialog() {
+                val logoutDialog = LogoutDialogFragment()
+                logoutDialog.show(childFragmentManager, "LogoutDialog")
             }
     }
-}
+

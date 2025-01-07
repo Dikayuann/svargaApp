@@ -1,6 +1,8 @@
 package com.example.svargaapp.client
 
 import com.example.svargaapp.response.account.LoginResponse
+import com.example.svargaapp.response.account.ResponseData
+import com.example.svargaapp.response.account.UpdateRequest
 import com.example.svargaapp.response.cart.CartItem
 import com.example.svargaapp.response.cart.CartRequest
 import com.example.svargaapp.response.cart.CartResponse
@@ -14,6 +16,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface Api {
     @GET("menu")
@@ -25,6 +28,16 @@ interface Api {
         @Field("username") username: String,
         @Field("password") password: String
     ): Call<LoginResponse>
+
+
+    @FormUrlEncoded
+    @PUT("account")
+    fun updateProfile(
+        @Field("username") username: String,
+        @Field("name") name: String,
+        @Field("phone_number") phone_number: String,
+        @Field("password") password: String
+    ): Call<ResponseData>
 
     @POST("cart/add")
     fun addToCart(@Body cartRequest: CartRequest): Call<CartResponse>
@@ -46,6 +59,7 @@ interface Api {
         @Path("userId") userId: String,
         @Path("cartId") cartId: String
     ): Call<CartResponse>
+
 
 }
 

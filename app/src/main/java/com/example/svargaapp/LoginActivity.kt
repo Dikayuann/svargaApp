@@ -26,6 +26,8 @@ class LoginActivity : AppCompatActivity() {
         var name = "Nama"
         var level = "Cashier"
         var password = "password"
+        var number = "Phone_number"
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,12 +80,32 @@ class LoginActivity : AppCompatActivity() {
                             ).show()
                             val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                             startActivity(intent)
+
+
+                            // Menyimpan data ke SharedPreferences
+                            val sharedPreferences = getSharedPreferences("user_pref", MODE_PRIVATE)
+                            val editor = sharedPreferences.edit()
+
+                            editor.putInt("user_id", account.data.user_id) // Simpan user_id
+                            editor.putString("username", account.data.username) // Simpan username
+                            editor.putString("name", account.data.name) // Simpan name
+                            editor.putString("number", account.data.phone_number) // Simpan number
+                            editor.putString("level", account.data.level) // Simpan level
+                            editor.putString("password", account.data.password) // Simpan password
+                            editor.apply()
+
+                            //mengecek ada respon number apa enggak
+                            Log.d("SharedPreferences", "Saved Phone Number: ${account.data.phone_number}")
+
+                            // Update variabel di LoginActivity
                             user_id = account.data.user_id
-                            Log.d("LoginActivity", "User ID: $user_id")
                             username = account.data.username
                             name = account.data.name
                             level = account.data.level
                             password = account.data.password
+                            number = account.data.phone_number
+
+
                         } else {
                             Toast.makeText(
                                 this@LoginActivity,
