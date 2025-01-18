@@ -1,5 +1,6 @@
 package com.example.svargaapp
 
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import com.example.svargaapp.client.RetrofitClient
 import com.example.svargaapp.response.discon.DiscountResponse
@@ -30,7 +32,7 @@ class TransactionFragment : Fragment() {
     private val LOCATION_REQUEST_CODE = 1001
 
     // UI components for location, payment, and discount info
-    private lateinit var location: TextView
+    private lateinit var txtLocation: TextView
     private lateinit var btnChangeLocation: TextView
     private lateinit var paymentName: TextView
     private lateinit var paymentAdmin: TextView
@@ -84,8 +86,8 @@ class TransactionFragment : Fragment() {
 
         // Widgets for Address, Delivery, Takeaway, Promo, Payment
         val widgetAddress: View = view.findViewById(R.id.widgetAddress)
-        val widgetDelivery: View = view.findViewById(R.id.widgetDelivery)
-        val widgetTakeAway: View = view.findViewById(R.id.widgetTakeAway)
+        var widgetDelivery: View = view.findViewById(R.id.widgetDelivery)
+        var widgetTakeAway: View = view.findViewById(R.id.widgetTakeAway)
         val widgetPromo: View = view.findViewById(R.id.widgetPromo)
         val widgetPayment: View = view.findViewById(R.id.widgetPayment)
 
@@ -97,6 +99,7 @@ class TransactionFragment : Fragment() {
             widgetTakeAway.visibility = View.GONE
             widgetPromo.visibility = View.GONE
             widgetPayment.visibility = View.GONE
+            updateTotal()
         } else {
             txtNoCheckout.visibility = View.GONE
             widgetAddress.visibility = View.VISIBLE
@@ -109,14 +112,37 @@ class TransactionFragment : Fragment() {
         }
 
         // Initialize location TextView
-        location = view.findViewById(R.id.textAddressStreet)
-        location.text = LoginActivity.location
+        txtLocation = view.findViewById(R.id.textAddressStreet)
+
+        val sharedPreferences = requireActivity().getSharedPreferences("user_pref", MODE_PRIVATE)
+        // Mengambil userId dari SharedPreferences
+        val location = sharedPreferences.getString("location", "")
+
+
+        txtLocation.text = location
 
         // Button to change location
         btnChangeLocation = view.findViewById(R.id.btnChangeLocation)
         btnChangeLocation.setOnClickListener {
             val intent = Intent(requireContext(), MapActivity::class.java)
             startActivityForResult(intent, LOCATION_REQUEST_CODE)
+        }
+
+
+        // Set listener untuk widgetDelivery
+        widgetDelivery.setOnClickListener {
+            // Mengubah warna widgetDelivery menjadi aktif
+            widgetDelivery.setBackgroundColor(resources.getColor(R.color.ecru))
+            // Mengubah warna widgetTakeAway menjadi tidak aktif
+            widgetTakeAway.setBackgroundColor(resources.getColor(R.color.white))
+        }
+
+        // Set listener untuk widgetTakeAway
+        widgetTakeAway.setOnClickListener {
+            // Mengubah warna widgetTakeAway menjadi aktif
+            widgetTakeAway.setBackgroundColor(resources.getColor(R.color.ecru))
+            // Mengubah warna widgetDelivery menjadi tidak aktif
+            widgetDelivery.setBackgroundColor(resources.getColor(R.color.white))
         }
 
         // Initialize payment method views
@@ -175,9 +201,26 @@ class TransactionFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        // Memuat lokasi terbaru dari SharedPreferences
+        val sharedPreferences = requireActivity().getSharedPreferences("user_pref", MODE_PRIVATE)
+        val location = sharedPreferences.getString("location", "")
+        txtLocation.text = location  // Update TextView dengan lokasi yang terbaru
+    }
+
+
     // Function to calculate and update totals
     private fun updateTotal() {
-        if (total != null) {
+        if (orderId == null) {
+                // Jika tidak ada total, set semuanya ke Rp. 0
+                txtTotal.text = "Rp. 0"
+                txtDiscountValue.text = "Rp. 0"
+                txtTax.text = "Rp. 0"
+                txtAdminFee.text = "Rp. 0"
+                txtGrandTotal.text = "Rp. 0"
+            } else {
             var discountAmount = 0
             var adminFee = 0
             var deliveryCost = 0
@@ -203,7 +246,6 @@ class TransactionFragment : Fragment() {
                 Log.d("UpdateTotal", "No discount applied.")
             }
 
-
             // Apply admin fee based on the selected payment method
             val selectedPaymentMethod = paymentMethodsList.find { it.name_method == paymentName.text.toString() }
             if (selectedPaymentMethod != null) {
@@ -214,7 +256,6 @@ class TransactionFragment : Fragment() {
             } else {
                 Log.d("UpdateTotal", "No admin fee applied.")
             }
-
 
             // Calculate tax (12%)
             val tax = (total!! * 0.12).toInt()
@@ -231,6 +272,7 @@ class TransactionFragment : Fragment() {
             txtGrandTotal.text = "Rp. ${"%,d".format(grandTotal)}"
         }
     }
+
 
     // Function to send payment data to the backend
     private fun processPayment(orderId: Int, discountId: String, paymentMethodId: Int, grandTotal: Int) {

@@ -76,13 +76,6 @@ class MenuAdapter(
         holder.bind(listMenu[position])
     }
 
-    // Fungsi untuk memperbarui daftar menu
-    fun updateMenu(newMenuList: List<MenuResponse>) {
-        listMenu.clear() // Hapus semua item sebelumnya
-        listMenu.addAll(newMenuList) // Tambahkan daftar item baru
-        notifyDataSetChanged() // Perbarui RecyclerView
-    }
-
     // Mengembalikan jumlah item dalam daftar
     override fun getItemCount(): Int = listMenu.size
 

@@ -130,6 +130,8 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/rectangle3"
+                android:clickable="true"
+                android:focusable="true"
                 android:paddingVertical="7dp"
                 android:paddingHorizontal="7dp"
                 app:layout_constraintEnd_toStartOf="@id/widgetTakeAway"
@@ -170,6 +172,8 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/rectangle3"
+                android:clickable="true"
+                android:focusable="true"
                 android:paddingVertical="7dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/widgetDelivery"
@@ -454,25 +458,11 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            <TextView
-                android:id="@+id/txtNoCheckout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/montserrat_semibold"
-                android:text="Anda Belum Checkout"
-                android:textColor="@color/green"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/chekout"
+        android:id="@+id/checkout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="15dp"
@@ -506,7 +496,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginBottom="5dp"
             android:text="Pajak:"
             android:textSize="13sp"
             android:fontFamily="@font/montserrat_light"
@@ -605,5 +594,19 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/txtNoCheckout"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="Anda Belum Checkout"
+        android:textColor="@color/green"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/header"
+        app:layout_constraintBottom_toTopOf="@id/checkout"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

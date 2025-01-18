@@ -1,12 +1,13 @@
 package com.example.svargaapp.client
 
 import com.example.svargaapp.response.account.LoginResponse
+import com.example.svargaapp.response.account.RegisterResponse
 import com.example.svargaapp.response.account.ResponseData
-import com.example.svargaapp.response.account.UpdateRequest
 import com.example.svargaapp.response.cart.CartItem
 import com.example.svargaapp.response.cart.CartRequest
 import com.example.svargaapp.response.cart.CartResponse
 import com.example.svargaapp.response.discon.DiscountResponse
+import com.example.svargaapp.response.history.HistoryResponse
 import com.example.svargaapp.response.map.MapResponse
 import com.example.svargaapp.response.menu.MenuResponse
 import com.example.svargaapp.response.order.OrderRequest
@@ -23,27 +24,28 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 interface Api {
     @GET("menu")
     fun getMenu(): Call<ArrayList<MenuResponse>>
 
     @FormUrlEncoded
-    @POST("account")
+    @POST("account/login")
     fun postLogin(
-        @Field("username") username: String,
+        @Field("email") email: String,
         @Field("password") password: String
     ): Call<LoginResponse>
 
 
     @FormUrlEncoded
-    @PUT("account")
+    @PUT("account/updateProfile")
     fun updateProfile(
-        @Field("username") username: String,
+        @Field("user_id") user_id: Int,
+        @Field("email") email: String,
         @Field("name") name: String,
         @Field("phone_number") phone_number: String,
-        @Field("password") password: String
+        @Field("password") password: String,
+        @Field("newPassword")newPassword: String
     ): Call<ResponseData>
 
     @POST("cart/add")
@@ -51,7 +53,7 @@ interface Api {
 
     @GET("cart/items/{user_id}")
     fun getCartItems(
-        @Path("user_id") userId: String
+        @Path("user_id") userId: Int
     ): Call<ArrayList<CartItem>>
 
     @PUT("cart/update/{cartId}")
@@ -63,7 +65,7 @@ interface Api {
 
     @DELETE("cart/remove/{userId}/{cartId}")
     fun removeCartItem(
-        @Path("userId") userId: String,
+        @Path("userId") userId: Int,
         @Path("cartId") cartId: String
     ): Call<CartResponse>
 
@@ -74,18 +76,33 @@ interface Api {
     fun getDiscount(): Call<List<DiscountResponse>>
 
     @POST("orders")
-    fun createOrder(@Body order: OrderRequest): Call<OrderResponse>
+    fun createOrder(
+        @Body order: OrderRequest
+    ): Call<OrderResponse>
 
     @FormUrlEncoded
     @PUT("location/update/{user_id}")
     fun putLocation(
-        @Path("user_id") userId: String,
+        @Path("user_id") userId: Int,
         @Field("location") newLocation: String
     ): Call<MapResponse>
 
     @POST("payment/create")
     fun createPayment(@Body paymentRequest: PaymentRequest): Call<PaymentResponse>
 
+    @GET("history/history/{user_id}")
+    fun getHistory(
+        @Path("user_id") userId: Int
+    ): Call<ArrayList<HistoryResponse>>
+
+    @FormUrlEncoded
+    @POST("account/register")
+    fun registerUser(
+        @Field("name") name: String,
+        @Field("email") email: String,
+        @Field("password") password: String,
+        @Field("confirm_password") confirmPassword: String
+    ): Call<RegisterResponse>
 
 }
 

@@ -4,7 +4,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
-    const val url = "http://172.24.207.119"
+    const val url = "http://192.168.83.15"
     const val BASE_URL = "$url/svargaApp/index.php/"
     const val IMAGE_URL = "$url/svargaApp/image/"
 

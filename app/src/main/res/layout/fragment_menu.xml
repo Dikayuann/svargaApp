@@ -42,6 +42,8 @@
             android:id="@+id/textViewLocation2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxWidth="150dp"
+            android:maxHeight="40dp"
             android:layout_marginStart="10dp"
             android:fontFamily="@font/montserrat_semibold"
             android:textSize="11sp"

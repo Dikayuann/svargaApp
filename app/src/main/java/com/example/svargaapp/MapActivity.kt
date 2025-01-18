@@ -14,11 +14,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import com.example.svargaapp.LoginActivity.Companion.location
-import com.example.svargaapp.LoginActivity.Companion.user_id
 import com.example.svargaapp.client.RetrofitClient
 import com.example.svargaapp.response.map.MapResponse
 import retrofit2.Call
@@ -72,6 +67,11 @@ class MapActivity : AppCompatActivity() {
 
         // Initialize location UI element
         txtLocation = findViewById(R.id.nowLocation)
+
+        val sharedPreferences = getSharedPreferences("user_pref", MODE_PRIVATE)
+        var location = sharedPreferences.getString("location", "")
+        val userId = sharedPreferences.getInt("user_id", 0)
+
         txtLocation.text = location  // Set the current location from LoginActivity
 
         Log.e("MapActivity", "Before New Location: ${location}")
@@ -91,40 +91,40 @@ class MapActivity : AppCompatActivity() {
         btnSave = findViewById(R.id.save)
         txtLocationNew = findViewById(R.id.searchLocation)
 
-        Log.e("MapActivity", "user id: ${user_id}")
+        Log.e("MapActivity", "user id: ${userId}")
 
         // Set up Save button functionality
         btnSave.setOnClickListener {
             val newLocation = txtLocationNew.text.toString()  // Get the new location text
             if (newLocation.isNotEmpty()) {
                 // Call Retrofit API to save the new location
-                RetrofitClient.instance.putLocation(
-                    user_id.toString(),
-                    newLocation
-                ).enqueue(object : Callback<MapResponse> {
+                RetrofitClient.instance.putLocation(userId, newLocation).enqueue(object : Callback<MapResponse> {
                     override fun onResponse(call: Call<MapResponse>, response: Response<MapResponse>) {
                         val account = response.body()
                         if (response.isSuccessful) {
-                            val message = account?.message ?: "Location updated successfully"  // Fallback message
+                            val message = account?.message ?: "Location updated successfully"
                             Toast.makeText(this@MapActivity, message, Toast.LENGTH_SHORT).show()
                             // Update location in local variable
                             location = newLocation
                             Log.e("MapActivity", "New Location: ${location}")
                             txtLocation.text = location  // Update the UI with the new location
 
-                            // Return updated location to TransactionFragment
-                            val resultIntent = Intent()
-                            resultIntent.putExtra("selected_location", newLocation)
-                            setResult(RESULT_OK, resultIntent) // Set result to send location back to parent activity
-                            finish() // Close MapActivity and return to previous activity
+                            // Save to SharedPreferences
+                            val editor = sharedPreferences.edit()
+                            editor.putString("location", location)
+                            editor.apply()
+
+                            // Close MapActivity and go back to TransactionFragment
+                            setResult(RESULT_OK)
+                            finish()
                         } else {
-                            val message = account?.message ?: "Failed to update location"  // Fallback message
+                            val message = account?.message ?: "Failed to update location"
                             Toast.makeText(this@MapActivity, message, Toast.LENGTH_LONG).show()
                         }
                     }
 
                     override fun onFailure(call: Call<MapResponse>, t: Throwable) {
-                        val errorMessage = t.message ?: "Unknown error occurred"  // Fallback message
+                        val errorMessage = t.message ?: "Unknown error occurred"
                         Toast.makeText(this@MapActivity, errorMessage, Toast.LENGTH_LONG).show()
                     }
                 })
@@ -132,6 +132,7 @@ class MapActivity : AppCompatActivity() {
                 Toast.makeText(this@MapActivity, "Please enter a new location", Toast.LENGTH_SHORT).show()
             }
         }
+
 
     }
 }

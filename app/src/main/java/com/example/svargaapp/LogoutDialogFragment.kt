@@ -28,14 +28,17 @@ class LogoutDialogFragment : DialogFragment() {
 
         // Tombol Logout - Hapus data dan redirect ke login
         btnLogout.setOnClickListener {
+
             // Menghapus data login di SharedPreferences
-            val sharedPreferences = requireActivity().getSharedPreferences("UserPref", Context.MODE_PRIVATE)
-            sharedPreferences.edit().clear().apply()  // Menghapus semua data
+            val sharedPreferences = requireActivity().getSharedPreferences("user_pref", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.clear()
+            editor.apply()
 
             // Arahkan ke LoginActivity
             val intent = Intent(activity, LoginActivity::class.java)
             startActivity(intent)
-            requireActivity().finish() // Menutup aktivitas saat logout
+            requireActivity().finish()
         }
 
         return view

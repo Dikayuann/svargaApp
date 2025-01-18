@@ -18,6 +18,16 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        // Cek status login saat aplikasi dibuka
+        val sharedPreferences = getSharedPreferences("user_pref", MODE_PRIVATE)
+        val isLoggedIn = sharedPreferences.getBoolean("is_logged_in", false)
+
+        if (isLoggedIn) {
+            // Jika sudah login, arahkan ke halaman menu
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
         //ekplisit intent untuk memanggil login activity
         val btnMulai:Button = findViewById(R.id.buttonStart)
         //memanggil activity login

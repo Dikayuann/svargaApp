@@ -1,5 +1,6 @@
 package com.example.svargaapp
 
+import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -52,9 +53,33 @@ class MenuFragment : Fragment() {
         location = view.findViewById(R.id.textViewLocation2)
         fotoProfile = view.findViewById(R.id.imageViewProfile)
 
-        location.text = LoginActivity.location
-        var url = RetrofitClient.IMAGE_URL + LoginActivity.foto_profile
-        Picasso.get().load(url).into(fotoProfile)
+
+        // Mendapatkan data dari SharedPreferences
+        val sharedPreferences = requireActivity().getSharedPreferences("user_pref", MODE_PRIVATE)
+        // Mengambil lokasi dan foto profil dari SharedPreferences
+        val userLocation = sharedPreferences.getString("location", "Unknown")
+        val fotoProfilePath = sharedPreferences.getString("foto_profile", "")
+
+        // Set lokasi di TextView
+        location.text = userLocation
+
+        // Mengatur gambar profil jika ada
+        if (!fotoProfilePath.isNullOrEmpty()) {
+            val url = RetrofitClient.IMAGE_URL + fotoProfilePath
+            Picasso.get().load(url).into(fotoProfile)
+        }
+
+        //button mengarah ke map activity
+
+        location.setOnClickListener {
+            val intent = Intent(activity, MapActivity::class.java)
+            startActivity(intent)
+        }
+
+        fotoProfile.setOnClickListener {
+            val intent = Intent(activity, ProfileDetail::class.java)
+            startActivity(intent)
+        }
 
         Log.e("MenuFragment", "Profile: ${fotoProfile}")
         // Setup for the image slider
@@ -116,11 +141,6 @@ class MenuFragment : Fragment() {
         btnHot = view.findViewById(R.id.btnHot)
         btnCold = view.findViewById(R.id.btnCold)
         btnOthers = view.findViewById(R.id.btnOthers)
-
-        fun bind(response: MenuResponse) {
-            // Ambil data dari response API
-            val name = "${response.category}"
-        }
 
         buttonList.addAll(listOf(btnAll, btnHot, btnCold, btnOthers))
 

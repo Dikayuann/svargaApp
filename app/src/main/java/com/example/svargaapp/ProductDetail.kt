@@ -82,8 +82,11 @@ class ProductDetail : AppCompatActivity() {
             quantityTextView.text = quantity.toString()  // Update quantity display
         }
 
-        // Get user ID from login activity
-        val userId = LoginActivity.user_id.toString()
+        // Mendapatkan data dari SharedPreferences
+        val sharedPreferences = getSharedPreferences("user_pref", MODE_PRIVATE)
+        // Mengambil userId dari SharedPreferences
+        val userId = sharedPreferences.getInt("user_id", 0)
+
         Log.d("ProductDetail", "User ID: $userId")
         val menuId = foodId.toString()
         Log.d("ProductDetail", "Menu ID: $menuId")
