@@ -16,6 +16,14 @@
         android:layout_centerHorizontal="true"
         android:src="@drawable/logo"/>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"/>
+
     <TextView
         android:id="@+id/textViewRegister"
         android:layout_width="wrap_content"
@@ -55,7 +63,7 @@
         android:layout_marginEnd="40dp"
         android:layout_marginTop="15dp"
         android:inputType="textEmailAddress"
-        android:hint="Nomor HP/Email"
+        android:hint="Email"
         android:fontFamily="sans-serif-condensed"
         android:paddingStart="10dp"
         android:paddingEnd="10dp" />
@@ -70,7 +78,7 @@
         android:layout_marginEnd="40dp"
         android:layout_marginTop="15dp"
         android:inputType="textPassword"
-        android:hint="Password"
+        android:hint="Kata Sandi"
         android:fontFamily="sans-serif-condensed"
         android:paddingStart="10dp"
         android:paddingEnd="10dp" />
@@ -85,7 +93,7 @@
         android:layout_marginEnd="40dp"
         android:layout_marginTop="15dp"
         android:inputType="textPassword"
-        android:hint="Confirm Password"
+        android:hint="Konfirmasi Kata Sandi"
         android:fontFamily="sans-serif-condensed"
         android:paddingStart="10dp"
         android:paddingEnd="10dp" />

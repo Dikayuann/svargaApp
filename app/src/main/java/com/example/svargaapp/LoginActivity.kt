@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Html
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -20,18 +22,6 @@ import retrofit2.Response
 
 class LoginActivity : AppCompatActivity() {
 
-    companion object{
-        var user_id = 0
-        var username = "username"
-        var name = "Nama"
-        var level = "Cashier"
-        var password = "password"
-        var number = "Phone_number"
-        var location = "location"
-        var foto_profile = "foto_profile"
-        var phone_number = "phone_number"
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -44,95 +34,79 @@ class LoginActivity : AppCompatActivity() {
         }
 
         // Mengambil referensi ke elemen UI
-        val editTextUsername: EditText = findViewById(R.id.editTextUsername)
+        val editTextUsername: EditText = findViewById(R.id.editTextEmailLogin)
         val editTextPassword: EditText = findViewById(R.id.editTextPassword)
         val buttonLogin: Button = findViewById(R.id.buttonLogin)
         val textViewRegisterPrompt: TextView = findViewById(R.id.textViewRegisterPrompt)
 
-
+        // Menambahkan progress bar
+        val progressBar: ProgressBar = findViewById(R.id.progressBar)
         buttonLogin.setOnClickListener {
+            // Menampilkan ProgressBar
+            progressBar.visibility = View.VISIBLE
 
-            var user = editTextUsername.text.toString().trim()
+            var email = editTextUsername.text.toString().trim()
             var pwd = editTextPassword.text.toString().trim()
 
-            if (user.isEmpty()) {
-                editTextUsername.error = "Username is required"
+            val emailPattern = Regex("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$")
+            if (email.isEmpty()) {
+                editTextUsername.error = "Email is required"
                 editTextUsername.requestFocus()
+                progressBar.visibility = View.GONE
+                return@setOnClickListener
+            }
+            if (!email.matches(emailPattern)) {
+                editTextUsername.error = "Invalid email format"
+                editTextUsername.requestFocus()
+                progressBar.visibility = View.GONE
                 return@setOnClickListener
             }
             if (pwd.isEmpty()) {
                 editTextPassword.error = "Password is required"
                 editTextPassword.requestFocus()
+                progressBar.visibility = View.GONE
+                return@setOnClickListener
+            }
+            if (pwd.length < 6) {
+                editTextPassword.error = "Password must be at least 6 characters long"
+                editTextPassword.requestFocus()
+                progressBar.visibility = View.GONE
                 return@setOnClickListener
             }
 
             //get response
-            RetrofitClient.instance.postLogin(user, pwd).enqueue(
+            RetrofitClient.instance.postLogin(email, pwd).enqueue(
                 object : Callback<LoginResponse> {
-                    override fun onResponse(
-                        call: Call<LoginResponse>,
-                        response: Response<LoginResponse>
-                    ) {
+                    override fun onResponse(call: Call<LoginResponse>, response: Response<LoginResponse>) {
+                        progressBar.visibility = View.GONE
                         val account = response.body()
-                        if (account?.success == true) {
-                            Toast.makeText(
-                                this@LoginActivity,
-                                account.message.toString(),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                        if (response.isSuccessful && account?.success == true) {
+                            // Menyimpan data ke SharedPreferences dan melanjutkan ke halaman home
+                            Toast.makeText(this@LoginActivity, account.message, Toast.LENGTH_SHORT).show()
                             val intent = Intent(this@LoginActivity, HomeActivity::class.java)
                             startActivity(intent)
 
-
-                            // Menyimpan data ke SharedPreferences
                             val sharedPreferences = getSharedPreferences("user_pref", MODE_PRIVATE)
                             val editor = sharedPreferences.edit()
-
-                            editor.putInt("user_id", account.data.user_id) // Simpan user_id
-                            editor.putString("username", account.data.username) // Simpan username
-                            editor.putString("name", account.data.name) // Simpan name
-                            editor.putString("number", account.data.phone_number) // Simpan number
-                            editor.putString("level", account.data.level) // Simpan level
-                            editor.putString("password", account.data.password) // Simpan password
+                            editor.putInt("user_id", account.data.user_id)
+                            editor.putString("email", account.data.email)
+                            editor.putString("name", account.data.name)
+                            editor.putString("level", account.data.level)
+                            editor.putString("location", account.data.location)
+                            editor.putString("foto_profile", account.data.foto_profile)
+                            editor.putString("phone_number", account.data.phone_number)
+                            editor.putString("password", account.data.password)
+                            editor.putBoolean("is_logged_in", true)
                             editor.apply()
 
-                            //mengecek ada respon number apa enggak
-                            Log.d("SharedPreferences", "Saved Phone Number: ${account.data.phone_number}")
-
-                            // Update variabel di LoginActivity
-                            user_id = account.data.user_id
-                            Log.d("LoginActivity", "User ID: $user_id")
-                            username = account.data.username
-                            name = account.data.name
-                            level = account.data.level
-                            password = account.data.password
-                            location = account.data.location
-                            foto_profile = account.data.foto_profile
-                            Log.d("LoginActivity", "Foto Profile: $foto_profile")
-                            phone_number = account.data.phone_number
-                            number = account.data.phone_number
-
-
-                            Log.d("LoginActivity", "Akun yang berhasil login:")
                             Log.d("LoginActivity", "User ID: ${account.data.user_id}")
-                            Log.d("LoginActivity", "Username: ${account.data.username}")
-                            Log.d("LoginActivity", "Name: ${account.data.name}")
-                            Log.d("LoginActivity", "Level: ${account.data.level}")
-                            Log.d("LoginActivity", "Phone Number: ${account.data.phone_number}")
-                            Log.d("LoginActivity", "Location: ${account.data.location}")
-                            Log.d("LoginActivity", "Foto Profile: ${account.data.foto_profile}")
-
-
                         } else {
-                            Toast.makeText(
-                                this@LoginActivity,
-                                account?.message.toString(),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            Toast.makeText(this@LoginActivity, account?.message ?: "Login failed", Toast.LENGTH_SHORT).show()
                         }
                     }
 
                     override fun onFailure(call: Call<LoginResponse>, t: Throwable) {
+                        progressBar.visibility = View.GONE
                         Toast.makeText(applicationContext, t.message, Toast.LENGTH_SHORT).show()
                         t.printStackTrace()
                     }

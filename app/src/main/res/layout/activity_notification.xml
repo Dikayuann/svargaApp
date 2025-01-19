@@ -23,11 +23,11 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
             android:background="@drawable/rectangle7"
             android:src="@drawable/baseline_chevron_left_24"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/textHeader"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/textHeader"
             android:contentDescription="back_button_desc"
             tools:ignore="ContentDescription" />
 

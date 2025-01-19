@@ -7,13 +7,9 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.svargaapp.LoginActivity.Companion.name
-import com.example.svargaapp.LoginActivity.Companion.number
-import com.example.svargaapp.LoginActivity.Companion.password
-import com.example.svargaapp.LoginActivity.Companion.username
+
 import com.example.svargaapp.client.RetrofitClient
 import com.example.svargaapp.response.account.ResponseData
-import com.example.svargaapp.response.account.UpdateRequest
 import com.google.android.material.textfield.TextInputLayout
 import retrofit2.Call
 import retrofit2.Callback
@@ -28,6 +24,8 @@ class ProfileEdit : AppCompatActivity() {
     private lateinit var txtNama: EditText
     private lateinit var txtPhoneNumber: EditText
     private lateinit var txtPassword: TextInputLayout
+    private lateinit var txtNewPassword: TextInputLayout
+    private lateinit var txtConfirmPassword: TextInputLayout
 
     private val TAG = "ProfileEdit"  // Untuk tag log
 
@@ -40,16 +38,25 @@ class ProfileEdit : AppCompatActivity() {
         btnSave = findViewById(R.id.button)
 
         // Mengakses EditText untuk input user
+
         txtEmail = findViewById(R.id.editTextEmaill)
         txtNama = findViewById(R.id.editTextName1)
         txtPhoneNumber = findViewById(R.id.editTextPhoneNumber1)
         txtPassword = findViewById(R.id.editTextPassword)
+        txtNewPassword = findViewById(R.id.editTextNewPassword)
+        txtConfirmPassword = findViewById(R.id.editTextConfirmNewPassword)
+
+        val sharedPreferences = getSharedPreferences("user_pref", MODE_PRIVATE)
+        val userId = sharedPreferences.getInt("user_id", 0)
+        val email = sharedPreferences.getString("email", "Unknown")
+        val name = sharedPreferences.getString("name", "Unknown")
+        val number = sharedPreferences.getString("phone_number", "Unknown")
 
         // Menampilkan data user dari LoginActivity (menggunakan companion object)
-        txtEmail.setText(LoginActivity.username)
-        txtNama.setText(LoginActivity.name)
-        txtPhoneNumber.setText(LoginActivity.number)  // Memperbarui untuk menampilkan phone number
-        txtPassword.editText?.setText(LoginActivity.password)
+        txtEmail.setText(email)
+        txtNama.setText(name)
+        txtPhoneNumber.setText(number)  // Memperbarui untuk menampilkan phone number
+        txtPassword.editText?.setText("") // Password tidak diset karena ini untuk edit
 
         // Menambahkan fungsionalitas untuk tombol back
         backButton.setOnClickListener {
@@ -59,22 +66,37 @@ class ProfileEdit : AppCompatActivity() {
 
         // Menambahkan aksi untuk tombol save
         btnSave.setOnClickListener {
-            // Validasi input
-            if (txtEmail.text.isNullOrEmpty() || txtNama.text.isNullOrEmpty() || txtPhoneNumber.text.isNullOrEmpty() || txtPassword.editText?.text.isNullOrEmpty()) {
-                Toast.makeText(this@ProfileEdit, "Please fill all fields", Toast.LENGTH_SHORT).show()
-                Log.w(TAG, "Validation failed: All fields must be filled.")
-                return@setOnClickListener
+
+            val newPassword = txtNewPassword.editText?.text.toString()
+            val confirmPassword = txtConfirmPassword.editText?.text.toString()
+
+            // Jika password lama diisi, password baru dan konfirmasi password harus diisi dan cocok
+            val currentPassword = txtPassword.editText?.text.toString()
+
+            if (currentPassword.isNotEmpty()) {
+                // Password baru dan konfirmasi password harus diisi dan cocok jika password lama diisi
+                if (newPassword.isEmpty() || confirmPassword.isEmpty()) {
+                    Toast.makeText(this@ProfileEdit, "Kolom tidak boleh kosong", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
+
+                if (newPassword != confirmPassword) {
+                    Toast.makeText(this@ProfileEdit, "Kata sandi baru tidak sama", Toast.LENGTH_SHORT).show()
+                    return@setOnClickListener
+                }
             }
 
             // Menambahkan log sebelum melakukan request
-            Log.d(TAG, "Sending profile update request with email: ${txtEmail.text}, name: ${txtNama.text}, phone number: ${txtPhoneNumber.text}")
+            Log.d(TAG, "Sending profile update request with email: ${txtEmail.text}, name: ${txtNama.text}, phone number: ${txtPhoneNumber.text}, new password: $newPassword")
 
             // Mengirim data ke API menggunakan Retrofit
             RetrofitClient.instance.updateProfile(
+                userId,
                 txtEmail.text.toString(),
                 txtNama.text.toString(),
                 txtPhoneNumber.text.toString(),
-                txtPassword.editText?.text.toString()
+                currentPassword,  // Mengirimkan password lama
+                newPassword // Mengirimkan password baru jika ada
             ).enqueue(object : Callback<ResponseData> {
 
                 override fun onResponse(call: Call<ResponseData>, response: Response<ResponseData>) {
@@ -86,11 +108,15 @@ class ProfileEdit : AppCompatActivity() {
                             Toast.makeText(this@ProfileEdit, account.message, Toast.LENGTH_SHORT).show()
 
                             // Simpan data baru yang telah diperbarui ke dalam aplikasi
-                            username = txtEmail.text.toString()
-                            name = txtNama.text.toString()
-                            number = txtPhoneNumber.text.toString()
-                            password = txtPassword.editText?.text.toString()
-
+                            val sharedPreferences = getSharedPreferences("user_pref", MODE_PRIVATE)
+                            val editor = sharedPreferences.edit()
+                            editor.putString("email", txtEmail.text.toString())
+                            editor.putString("name", txtNama.text.toString())
+                            editor.putString("phone_number", txtPhoneNumber.text.toString())
+                            if (newPassword.isNotEmpty()) {
+                                editor.putString("password", newPassword) // Simpan password baru
+                            }
+                            editor.apply()
 
                         } else {
                             Log.e(TAG, "Response body is null.")
@@ -118,4 +144,5 @@ class ProfileEdit : AppCompatActivity() {
         Log.d(TAG, "Back pressed, returning to the previous activity.")
     }
 }
+
 

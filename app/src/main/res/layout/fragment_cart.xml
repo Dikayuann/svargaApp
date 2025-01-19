@@ -64,7 +64,7 @@
     <!-- Konten yang dapat digulir (scroll) -->
     <!-- Total Harga dan Checkout -->
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/chekout"
+        android:id="@+id/checkout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="15dp"
@@ -155,5 +155,19 @@
             app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textEmptyCart"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_semibold"
+        android:text="Keranjang Anda Kosong"
+        android:textColor="@color/green"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerCart"
+        app:layout_constraintBottom_toTopOf="@id/checkout"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
