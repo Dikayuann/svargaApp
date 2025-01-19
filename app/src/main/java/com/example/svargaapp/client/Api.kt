@@ -1,6 +1,7 @@
 package com.example.svargaapp.client
 
 import com.example.svargaapp.response.account.LoginResponse
+import com.example.svargaapp.response.account.RegisterRequest
 import com.example.svargaapp.response.account.ResponseData
 import com.example.svargaapp.response.account.UpdateRequest
 import com.example.svargaapp.response.cart.CartItem
@@ -29,12 +30,23 @@ interface Api {
     @GET("menu")
     fun getMenu(): Call<ArrayList<MenuResponse>>
 
+
     @FormUrlEncoded
     @POST("account")
     fun postLogin(
         @Field("username") username: String,
         @Field("password") password: String
     ): Call<LoginResponse>
+
+    @FormUrlEncoded
+    @POST("register")
+    fun registerUser(
+        @Field("username") username: String,
+        @Field("name") name: String,
+        @Field("password") password: String,
+        @Field("confirm_password") confirmPassword: String
+    ): Call<RegisterRequest>
+
 
 
     @FormUrlEncoded

@@ -82,8 +82,9 @@ class ProductDetail : AppCompatActivity() {
             quantityTextView.text = quantity.toString()  // Update quantity display
         }
 
-        // Get user ID from login activity
-        val userId = LoginActivity.user_id.toString()
+        // Get user ID from SharedPreferences
+        val sharedPreferences = getSharedPreferences("user_pref", MODE_PRIVATE)
+        val userId = sharedPreferences.getInt("user_id", 0) // Get user_id from SharedPreferences
         Log.d("ProductDetail", "User ID: $userId")
         val menuId = foodId.toString()
         Log.d("ProductDetail", "Menu ID: $menuId")
@@ -91,7 +92,7 @@ class ProductDetail : AppCompatActivity() {
         btnAddToCart = findViewById(R.id.btnCheckout)
         btnAddToCart.setOnClickListener {
             // Create a new CartRequest with the updated quantity
-            val cartRequest = CartRequest(userId, menuId, quantity)
+            val cartRequest = CartRequest(userId.toString(), menuId, quantity)
             Log.d("ProductDetail", "Cart Request: $cartRequest")
 
             // Call API to add to cart
@@ -101,8 +102,6 @@ class ProductDetail : AppCompatActivity() {
                     response: Response<CartResponse>
                 ) {
                     if (response.isSuccessful && response.body()?.status == true) {
-//                        Toast.makeText(applicationContext, "Item added to cart", Toast.LENGTH_SHORT)
-//                            .show()
                         Toast.makeText(
                             this@ProductDetail,
                             response.body()?.message.toString(),
@@ -124,5 +123,5 @@ class ProductDetail : AppCompatActivity() {
             })
         }
     }
-
 }
+

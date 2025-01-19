@@ -113,6 +113,16 @@ class LoginActivity : AppCompatActivity() {
                             number = account.data.phone_number
 
 
+                            Log.d("LoginActivity", "Akun yang berhasil login:")
+                            Log.d("LoginActivity", "User ID: ${account.data.user_id}")
+                            Log.d("LoginActivity", "Username: ${account.data.username}")
+                            Log.d("LoginActivity", "Name: ${account.data.name}")
+                            Log.d("LoginActivity", "Level: ${account.data.level}")
+                            Log.d("LoginActivity", "Phone Number: ${account.data.phone_number}")
+                            Log.d("LoginActivity", "Location: ${account.data.location}")
+                            Log.d("LoginActivity", "Foto Profile: ${account.data.foto_profile}")
+
+
                         } else {
                             Toast.makeText(
                                 this@LoginActivity,
