@@ -6,5 +6,9 @@
     <color name="ecru">#D3C582</color>
     <color name="cream">#F3EED4</color>Parchment
     <color name="silver">#DEE2E6</color>Platinum
-    
+    <color name="blue">#7003A9F4</color>
+    <color name="red">#A1F40303</color>
+    <color name="defaultColor">#FFFFFF</color> <!-- Example default color -->
+
+
 </resources>

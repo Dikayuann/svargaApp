@@ -32,16 +32,16 @@
         android:text="Log In" />
 
     <EditText
-        android:id="@+id/editTextUsername"
+        android:id="@+id/editTextEmailLogin"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_below="@+id/textViewTitle"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginTop="30dp"
-        android:inputType="text"
+        android:inputType="textEmailAddress"
         android:background="@drawable/custom_login_bg"
-        android:hint="Username"
+        android:hint="Email"
         android:fontFamily="sans-serif-condensed"
         android:paddingStart="10dp"
         android:paddingEnd="10dp" />
@@ -50,16 +50,25 @@
         android:id="@+id/editTextPassword"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_below="@+id/editTextUsername"
+        android:layout_below="@id/editTextEmailLogin"
         android:background="@drawable/custom_login_bg"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginTop="15dp"
         android:inputType="textPassword"
-        android:hint="Password"
+        android:hint="Kata Sandi"
         android:fontFamily="sans-serif-condensed"
         android:paddingStart="10dp"
         android:paddingEnd="10dp" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"/>
+
 
     <Button
         android:id="@+id/buttonLogin"

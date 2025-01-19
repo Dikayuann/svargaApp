@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProductDetail"
+    android:background="@color/white">
+
+<!-- Image -->
+<ImageView
+    android:id="@+id/productImage"
+    android:layout_width="0dp"
+    android:layout_height="300dp"
+    android:scaleType="centerCrop"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    android:contentDescription="product_image_desc"
+    tools:srcCompat="@drawable/menu1" />
+
+<!-- Back Button -->
+<ImageView
+    android:id="@+id/backButton"
+    android:layout_width="35dp"
+    android:layout_height="35dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginTop="20dp"
+    android:background="@drawable/rectangle7"
+    android:src="@drawable/baseline_chevron_left_24"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    android:contentDescription="back_button_desc"
+    tools:ignore="ContentDescription" />
+
+<!-- Product Info -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/productImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="@drawable/rectangle9"
+        android:padding="20dp"
+        android:layout_marginTop="-45dp">
+
+        <!-- Product Title -->
+        <TextView
+            android:id="@+id/productTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:fontFamily="@font/montserrat_semibold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Cappuccino" />
+
+        <TextView
+            android:id="@+id/productId"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:fontFamily="@font/montserrat_semibold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Id Menu" />
+
+        <!-- Product Subtitle -->
+        <TextView
+            android:id="@+id/productSubtitle"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:fontFamily="@font/montserrat_regular"
+            app:layout_constraintTop_toBottomOf="@id/productTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Original Coffee" />
+
+        <!-- Product Price -->
+        <TextView
+            android:id="@+id/productPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:fontFamily="@font/montserrat_bold"
+            tools:text="Rp. 23.000"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/productSubtitle"/>
+
+        <TextView
+            android:id="@+id/textDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:fontFamily="@font/montserrat_semibold"
+            android:textColor="@color/green"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/productSubtitle"
+            android:text="Deskripsi" />
+
+    <!-- Content -->
+    <TextView
+        android:id="@+id/productContent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/green"
+        android:textSize="13sp"
+        android:lineHeight="20sp"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/montserrat_regular"
+        app:layout_constraintTop_toBottomOf="@id/textDescription"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Cappuccino Original adalah minuman kopi klasik yang ter-
+buat dari espresso pilihan, susu panas, dan lapisan foam susu
+yang lembut di atasnya. Rasanya yang seimbang antara pahit
+dan creamy menjadikannya pilihan favorit untuk dinikmati
+kapan saja. Aromanya yang khas memberikan pengalaman
+kopi yang autentik dan menenangkan." />
+
+
+    <!-- Checkout Section -->
+        <LinearLayout
+            android:id="@+id/checkoutSection"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnCheckout"
+            android:background="@drawable/rectangle8"
+            android:padding="7dp"
+            android:layout_marginStart="30.2dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="20dp">
+
+            <!-- Decrement Button -->
+            <ImageButton
+                android:id="@+id/btnDecrement"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/rectangle7"
+                android:src="@drawable/baseline_horizontal_rule_24_green"
+                android:contentDescription="decrement_button_desc"
+                tools:ignore="ContentDescription" />
+
+            <!-- Quantity -->
+            <TextView
+                android:id="@+id/quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="25dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:text="1"
+                android:fontFamily="@font/montserrat_bold"
+                android:textColor="@color/green"
+                android:textSize="15sp" />
+
+            <!-- Increment Button -->
+            <ImageButton
+                android:id="@+id/btnIncrement"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/rectangle7"
+                android:src="@drawable/baseline_add_24_green"
+                android:contentDescription="add_button_desc"
+                tools:ignore="ContentDescription" />
+
+        </LinearLayout>
+
+        <!-- Checkout Button -->
+        <TextView
+            android:id="@+id/btnCheckout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="30.2dp"
+            android:layout_marginStart="10dp"
+            android:paddingHorizontal="32dp"
+            android:paddingVertical="7dp"
+            android:text="Tambah"
+            android:fontFamily="@font/montserrat_bold"
+            android:textSize="15sp"
+            android:background="@drawable/rectangle8"
+            android:textColor="@color/green"
+            app:layout_constraintTop_toTopOf="@id/checkoutSection"
+            app:layout_constraintBottom_toBottomOf="@id/checkoutSection"
+            app:layout_constraintStart_toEndOf="@id/checkoutSection"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

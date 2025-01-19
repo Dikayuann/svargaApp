@@ -1,0 +1,38 @@
+package com.example.svargaapp.CartRepository
+
+import com.example.svargaapp.Product
+
+
+
+object CartRepository {
+
+    // Daftar produk yang dipilih
+    private val cartItems = mutableListOf<Product>()
+
+    // Mendapatkan semua produk di keranjang
+    fun getCartItems(): List<Product> = cartItems
+
+    // Menambahkan produk ke keranjang
+    fun addToCart(product: Product) {
+        // Periksa apakah produk sudah ada di keranjang
+        val existingProduct = cartItems.find { it.name == product.name }
+        if (existingProduct != null) {
+            // Jika sudah ada, tambahkan kuantitasnya
+            existingProduct.quantity += product.quantity
+        } else {
+            // Jika belum ada, tambahkan sebagai item baru
+            cartItems.add(product)
+        }
+    }
+
+    // Menghapus produk dari keranjang
+    fun removeFromCart(product: Product) {
+        cartItems.remove(product)
+    }
+
+    // Membersihkan semua produk di keranjang
+    fun clearCart() {
+        cartItems.clear()
+    }
+}
+
